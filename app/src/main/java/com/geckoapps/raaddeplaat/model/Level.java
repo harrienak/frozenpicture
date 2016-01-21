@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.geckoapps.raaddeplaat.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +27,7 @@ public class Level {
     private boolean hasShuffledBlocks;
     private ImageView image;
     private List<Block> shuffledBlocks;
+    private Toolbar toolbar;
 
     private ArrayList<String> letters;
     private final int max_letters = 18;
@@ -37,7 +40,7 @@ public class Level {
     private int numberOfLetters;
     private ArrayList<String> removeHelp;
 
-    public Level(Context context, String imageResource, String answer, int tiles, int tilesPerTurn, int coins, ImageView image) {
+    public Level(Context context, String imageResource, String answer, int tiles, int tilesPerTurn, int coins, ImageView image, Toolbar toolbar) {
         this.context = context;
         this.imageResource = imageResource;
         this.tiles = tiles;
@@ -45,6 +48,7 @@ public class Level {
         this.tilesPerTurn = tilesPerTurn;
         this.coins = coins;
         this.image = image;
+        this.toolbar = toolbar;
 
         image.setVisibility(View.INVISIBLE);
         image.setImageResource(context.getResources().getIdentifier(imageResource,
@@ -76,6 +80,8 @@ public class Level {
 
         Collections.shuffle(this.letters);
         Collections.shuffle(this.removeHelp);
+
+        toolbar.initProgressBar( (tiles*tiles) );
     }
 
 
@@ -142,6 +148,10 @@ public class Level {
         hasShuffledBlocks = false;
         for (int j = 0; j < shuffledBlocks.size(); j++) {
             if (shuffledBlocks.get(j).isSelected()) {
+                //add coins
+                if(shuffledBlocks.get(j).isHasCoin()){
+                    toolbar.addCoins(Utils.PRIZE_FOR_COIN);
+                }
                 shuffledBlocks.get(j).breakBlock();
             }
         }
@@ -155,6 +165,11 @@ public class Level {
                 }
             }
         }
+        hasShuffledBlocks = true;
+        toolbar.animateProgressBar(tilesPerTurn);
+        if(isHasShuffledBlocks()) {
+            shuffleBlocks();
+        }
     }
 
     public void shuffleBlocks() {
@@ -163,10 +178,14 @@ public class Level {
         for (int j = 0; j < shuffledBlocks.size(); j++) {
             shuffledBlocks.get(j).setSelected(false);
         }
-        for (int i = 0; i < tilesPerTurn; i++) {
-            shuffledBlocks.get(i).fadeInBlock();
+        if(!shuffledBlocks.isEmpty()) {
+            for (int i = 0; i < tilesPerTurn; i++) {
+                shuffledBlocks.get(i).fadeInBlock();
+            }
+            hasShuffledBlocks = true;
+        } else {
+            hasShuffledBlocks = false;
         }
-        hasShuffledBlocks = true;
     }
 
     public boolean isHasShuffledBlocks() {
@@ -234,6 +253,10 @@ public class Level {
         }
 
         return canClick;
+    }
+
+    public boolean shuffleIsPossible(){
+        return !shuffledBlocks.isEmpty();
     }
 }
 

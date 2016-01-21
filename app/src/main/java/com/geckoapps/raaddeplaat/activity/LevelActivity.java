@@ -1,6 +1,8 @@
 package com.geckoapps.raaddeplaat.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +20,10 @@ import android.widget.Toast;
 import com.geckoapps.raaddeplaat.R;
 import com.geckoapps.raaddeplaat.model.Block;
 import com.geckoapps.raaddeplaat.model.Level;
+import com.geckoapps.raaddeplaat.model.Toolbar;
+import com.geckoapps.raaddeplaat.utils.Utils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,6 +40,7 @@ public class LevelActivity extends Activity {
     ImageView levelImageView;
     @Bind(R.id.level_block_container)
     LinearLayout blockContainer;
+    @Bind(R.id.level_toolbar) Toolbar toolbar;
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
@@ -45,8 +52,15 @@ public class LevelActivity extends Activity {
         setContentView(R.layout.activity_level);
 
         ButterKnife.bind(this);
+        loadAds();
         setViews();
         initLevel();
+    }
+
+    private void loadAds() {
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void initLevel() {
@@ -57,6 +71,7 @@ public class LevelActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                shuffleBlocks();
                 singleAnimationLetter(0);
             }
         }, 1100);
@@ -65,13 +80,68 @@ public class LevelActivity extends Activity {
     @OnClick(R.id.button_axe)
     public void removeBlocks() {
         if (currentLevel.isHasShuffledBlocks()) {
-            currentLevel.removeBlocksForTurn();
+            if (toolbar.spendCoins(Utils.PRIZE_HACK)) {
+                currentLevel.removeBlocksForTurn();
+            } else {
+                showNotEnoughMoneyDialog();
+            }
+        } else {
+            showDialog("ga nou shufflen", "je moet eerst shufflen daarna kun je hakken", "oke", "oke");
         }
     }
 
     @OnClick(R.id.button_shuffle)
-    public void shuffleBlocks() {
-        currentLevel.shuffleBlocks();
+    public void shuffleBlocksCheck() {
+        if (toolbar.spendCoins(Utils.PRIZE_SHUFFLE)) {
+            shuffleBlocks();
+        } else {
+            showNotEnoughMoneyDialog();
+        }
+    }
+
+    private void shuffleBlocks() {
+        if (currentLevel.shuffleIsPossible()) {
+            currentLevel.shuffleBlocks();
+        } else {
+            showDialog("kan niet meer", "verrekte mongol je kan niet meer shufflen, ga toch jumpen", "Jumpen", "cancel");
+        }
+    }
+
+    @OnClick(R.id.button_share)
+    public void share() {
+        toolbar.addCoins(100);
+    }
+
+    @OnClick(R.id.buttonBom)
+    public void removeLetters() {
+
+    }
+
+    @OnClick(R.id.buttonLetterHint)
+    public void hintLetter() {
+
+    }
+
+    private void showNotEnoughMoneyDialog() {
+        showDialog("Niet genoeg doekoe", "GA kopen met je moker kop!", "GO TO THE SHOPPAA", "WEG HIER");
+    }
+
+    private void showDialog(String title, String message, String possitiveButton, String negativeButton) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(possitiveButton, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void setLevel() {
@@ -287,11 +357,8 @@ public class LevelActivity extends Activity {
         }
     }
 
-    private void animateLetters() {
-    }
-
     private void getLevel() {
-        currentLevel = new Level(this, "level1", "geil wijf", 12, 10, 20, levelImageView);
+        currentLevel = new Level(this, "level1", "geil wijf", 10, 10, 20, levelImageView, toolbar);
     }
 
     private void setViews() {
@@ -307,7 +374,7 @@ public class LevelActivity extends Activity {
         letters.add((Button) findViewById(R.id.buttonLetter5));
         letters.add((Button) findViewById(R.id.buttonLetter6));
         letters.add((Button) findViewById(R.id.buttonLetter7));
-        letters.add((Button) findViewById(R.id.buttonLetter8));
+        //letters.add((Button) findViewById(R.id.buttonLetter8));
         letters.add((Button) findViewById(R.id.buttonLetter9));
         letters.add((Button) findViewById(R.id.buttonLetter10));
         letters.add((Button) findViewById(R.id.buttonLetter11));
@@ -316,7 +383,7 @@ public class LevelActivity extends Activity {
         letters.add((Button) findViewById(R.id.buttonLetter14));
         letters.add((Button) findViewById(R.id.buttonLetter15));
         letters.add((Button) findViewById(R.id.buttonLetter16));
-        letters.add((Button) findViewById(R.id.buttonLetter17));
+        //letters.add((Button) findViewById(R.id.buttonLetter17));
 
         woord = new ArrayList<>();
         woord.add((Button) findViewById(R.id.buttonWoord0));
@@ -477,8 +544,8 @@ public class LevelActivity extends Activity {
         }
     }
 
-    private void singleAnimationLetter(final int i){
-        if(i < letters.size() ){
+    private void singleAnimationLetter(final int i) {
+        if (i < letters.size()) {
             Animation ani = AnimationUtils.loadAnimation(this, R.anim.letters);
             letters.get(i).setVisibility(Button.VISIBLE);
             letters.get(i).startAnimation(ani);
@@ -486,6 +553,7 @@ public class LevelActivity extends Activity {
                 public void onAnimationEnd(Animation animation) {
                     singleAnimationLetter((i + 1));
                 }
+
                 public void onAnimationRepeat(Animation arg0) {
                 }
 
