@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +42,7 @@ public class Toolbar extends RelativeLayout {
     }
 
     private void init(Context context){
+        this.context = context;
         settings = context.getSharedPreferences(Utils.SHARED_SETTINGS, Context.MODE_PRIVATE);
 
         inflate(getContext(), R.layout.toolbar, this);
