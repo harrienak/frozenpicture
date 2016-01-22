@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
  * Created by Sjoerd on 21-1-2016.
  */
 public class Toolbar extends RelativeLayout {
+    @Bind(R.id.toolbar_level) TextView level;
     @Bind(R.id.toolbar_coins) TextView coins;
     @Bind(R.id.toolbar_progressbar)ProgressBar progressBar;
     private Context context;
@@ -48,6 +49,7 @@ public class Toolbar extends RelativeLayout {
         inflate(getContext(), R.layout.toolbar, this);
         ButterKnife.bind(this, this);
         setCoins();
+        setLevel();
     }
 
     public void setCoins(){
@@ -71,6 +73,15 @@ public class Toolbar extends RelativeLayout {
         } else {
             return false;
         }
+    }
+
+    public void setLevel(){
+        level.setText("" + Utils.getSharedPref(context, Utils.SHARED_LEVEL));
+    }
+
+    public void addLevel(int i){
+        Utils.setSharedPref(context, Utils.SHARED_LEVEL, (Utils.getSharedPref(context, Utils.SHARED_LEVEL) + i));
+        setLevel();
     }
 
     public void initProgressBar(int max){

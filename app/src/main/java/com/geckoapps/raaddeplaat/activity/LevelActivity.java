@@ -21,10 +21,12 @@ import com.geckoapps.raaddeplaat.R;
 import com.geckoapps.raaddeplaat.model.Block;
 import com.geckoapps.raaddeplaat.model.Level;
 import com.geckoapps.raaddeplaat.model.Toolbar;
+import com.geckoapps.raaddeplaat.utils.DatabaseHelper;
 import com.geckoapps.raaddeplaat.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,6 +47,7 @@ public class LevelActivity extends Activity {
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
     private Typeface typeface;
+    private DatabaseHelper db;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,14 @@ public class LevelActivity extends Activity {
         setContentView(R.layout.activity_level);
 
         ButterKnife.bind(this);
+
+        db = new DatabaseHelper(this);
+        try {
+            db.createDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         loadAds();
         setViews();
         initLevel();
@@ -358,7 +369,9 @@ public class LevelActivity extends Activity {
     }
 
     private void getLevel() {
-        currentLevel = new Level(this, "level1", "geil wijf", 10, 10, 20, levelImageView, toolbar);
+        db.openDataBase();
+        currentLevel = db.getLevel(Utils.getSharedPref(this, Utils.SHARED_LEVEL), this, levelImageView, toolbar);
+        db.close();
     }
 
     private void setViews() {
@@ -515,6 +528,8 @@ public class LevelActivity extends Activity {
 
                             //LEVEL COMPLETE
                             Toast.makeText(LevelActivity.this, "JEZUS WAT BEN JE GOED! BETALEN NOU!", Toast.LENGTH_SHORT).show();
+                            toolbar.addLevel(1);
+                            initLevel();
                         }
 
                         public void onAnimationRepeat(Animation arg0) {

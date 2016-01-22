@@ -17,6 +17,7 @@ import java.util.Random;
 
 
 public class Level {
+    private int nr;
     private Context context;
     private String imageResource;
     private int tiles;
@@ -30,7 +31,7 @@ public class Level {
     private Toolbar toolbar;
 
     private ArrayList<String> letters;
-    private final int max_letters = 18;
+    private final int max_letters = 16;
     private String[] alfabet = {"a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private ArrayList<String> woorden;
     public String[] woord_letters;
@@ -40,7 +41,8 @@ public class Level {
     private int numberOfLetters;
     private ArrayList<String> removeHelp;
 
-    public Level(Context context, String imageResource, String answer, int tiles, int tilesPerTurn, int coins, ImageView image, Toolbar toolbar) {
+    public Level(Context context, int nr,  String imageResource, String answer, int tiles, int tilesPerTurn, int coins, ImageView image, Toolbar toolbar) {
+        this.nr = nr;
         this.context = context;
         this.imageResource = imageResource;
         this.tiles = tiles;

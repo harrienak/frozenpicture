@@ -1,7 +1,8 @@
 package com.geckoapps.raaddeplaat.activity;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -30,6 +31,7 @@ public class StartActivity extends Activity {
 
     private void loadLevels() {
         if (Utils.isFirstTime(this)) {
+            Utils.setSharedPref(this, Utils.SHARED_LEVEL, 1);
             Utils.setSharedPref(this, Utils.SHARED_FIRSTTIME, false);
             shuffleLevels();
         } else {
@@ -42,6 +44,14 @@ public class StartActivity extends Activity {
             @Override
             public void run() {
 
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        showPlayScreen();
+                    }
+                });
             }
         }).start();
     }
@@ -53,6 +63,7 @@ public class StartActivity extends Activity {
 
     @OnClick(R.id.button_play)
     public void play() {
-
+        Intent intent= new Intent(StartActivity.this, LevelActivity.class);
+        startActivity(intent);
     }
 }
