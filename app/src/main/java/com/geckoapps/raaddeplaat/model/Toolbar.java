@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,7 +23,8 @@ import butterknife.ButterKnife;
  */
 public class Toolbar extends RelativeLayout {
     @Bind(R.id.toolbar_level) TextView level;
-    @Bind(R.id.toolbar_coins) TextView coins;
+    @Bind(R.id.toolbar_coins)
+    Button coins;
     @Bind(R.id.toolbar_progressbar)ProgressBar progressBar;
     private Context context;
     private SharedPreferences settings;
