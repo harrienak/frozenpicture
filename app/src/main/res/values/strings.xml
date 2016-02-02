@@ -1,6 +1,48 @@
 <resources>
-    <string name="app_name">Raaddeplaat</string>
+    <string name="app_name">Frozen Picture</string>
     <string name="banner_ad_unit_id_levelscreen">ca-app-pub-9432954813736069/5985300038</string>
-    <string name="title_activity_start">StartActivity</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="coins_q">Coins?</string>
+    <string name="coins">Coins!</string>
+    <string name="title_removeletters">Give a hint</string>
+    <string name="text_removeletters">Are you sure you want to get a hint for</string>
+
+    <string name="title_hintletter">Show a letter</string>
+    <string name="text_hintletter">Are you sure you want to reveal a letter for</string>
+
+    <string name="title_skiplevel">Skip level</string>
+    <string name="text_skiplevel">Are you sure you want to skip this level for</string>
+
+    <string name="toast_hint">Remove letters from your answer, to use hints.</string>
+    <string name="toast_remove">You cannot remove any letters, because you need them all!</string>
+    <string name="toast_remove2">You cannot remove any more letters in this level.</string>
+    <string name="toast_zachtgeluid">Watch out! The volume is very soft!</string>
+
+
+    <string name="popup_title_lang">Change language?</string>
+    <string name="popup_text_lang">Are you sure you want to change your language? You will start at level 1, but keep your coins.</string>
+
+    <string name="toast_problemshop">Problem setting up in-app billing:</string>
+    <string name="toast_bought">Congratz with buying</string>
+
+    <string name="inapp150">With your next purchase you will receive 50% free bonus coins!</string>
+
+    <string name="loadlevels_title">Please wait...</string>
+    <string name="loadlevels_text">Loading levels. This may take a few seconds.</string>
+
+    <string name="share_title">Share What is the Sound!</string>
+    <string name="share_error1">error-101 - Something went wrong. The file cannot be found.</string>
+    <string name="share_error2">error-102 - Something went wrong.</string>
+    <string name="share_error3">Share did not work. You need an external SD card for sharing. You can contact us at info@appoh.nl.</string>
+
+
+    <string name="share_text">Download What is the Sound now on the Google Play Store: https://play.google.com/store/apps/details?id=com.geckoapps.raadhetgeluid</string>
+    <string name="share_text2">Do you know what sound this is?</string>
+
+    <string name="error_lvl_from_db">Something went wrong.</string>
+    <string name="title_activity_shop">ShopActivity</string>
 
 </resources>

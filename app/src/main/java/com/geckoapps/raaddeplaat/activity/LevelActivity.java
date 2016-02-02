@@ -29,6 +29,7 @@ import com.google.android.gms.ads.AdView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +43,8 @@ public class LevelActivity extends Activity {
     ImageView levelImageView;
     @Bind(R.id.level_block_container)
     LinearLayout blockContainer;
-    @Bind(R.id.level_toolbar) Toolbar toolbar;
+    @Bind(R.id.level_toolbar)
+    Toolbar toolbar;
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
@@ -123,14 +125,110 @@ public class LevelActivity extends Activity {
         toolbar.addCoins(100);
     }
 
+    boolean canRemove = true;
+
     @OnClick(R.id.buttonBom)
     public void removeLetters() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.title_removeletters))
+                .setMessage(getString(R.string.text_removeletters) + " " + Utils.PRIZE_BOMB + " " + getString(R.string.coins_q))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!canRemove){
+                            Toast.makeText(LevelActivity.this, "you cant do this twice for 1 level", Toast.LENGTH_SHORT).show();
+                        }
+                        if (toolbar.spendCoins(Utils.PRIZE_BOMB)) {
+                            canRemove = false;
+                            dialog.dismiss();
+                            removeLettersPeform();
+                        } else {
+                            dialog.dismiss();
+                            showNotEnoughMoneyDialog();
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(R.drawable.icon_remove)
+                .show();
+    }
 
+    private void removeLettersPeform() {
+        int aantalWeg = 0;
+        canRemove = false;
+        if (currentLevel.correct_letters.length == 15) {
+            aantalWeg = 1;
+        } else {
+            aantalWeg = (int) (letters.size() - currentLevel.correct_letters.length) / 2;
+            if (aantalWeg > 5)
+                aantalWeg = 5;
+            else if (aantalWeg < 1)
+                aantalWeg = 1;
+        }
+        for (int i = 0; i < aantalWeg; i++) {
+            for (int j = 0; j < letters.size(); j++) {
+                if (currentLevel.getRemoveHelp().get(i).equalsIgnoreCase((String) letters.get(j).getText())) {
+                    letters.get(j).setVisibility(Button.INVISIBLE);
+                    break;
+                }
+            }
+        }
     }
 
     @OnClick(R.id.buttonLetterHint)
     public void hintLetter() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.title_hintletter))
+                .setMessage(getString(R.string.text_hintletter) + " " + Utils.PRIZE_HINT + " " + getString(R.string.coins_q))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!currentLevel.lettersAreClickable()) {
+                            //bovenbalk.showToastMsg(getString(R.string.toast_hint));
+                        } else if (toolbar.spendCoins(Utils.PRIZE_HINT)) {
+                            hintLetterPeform();
+                        } else {
+                            dialog.dismiss();
+                            showNotEnoughMoneyDialog();
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(R.drawable.icon_hint)
+                .show();
+    }
 
+    private void hintLetterPeform() {
+        Random r = new Random();
+        boolean notFound = true;
+        int nr = -1;
+        while (notFound) {
+            nr = r.nextInt(currentLevel.woord_letters.length);
+            if (currentLevel.woord_letters[nr].equals("")) {
+                notFound = false;
+            }
+        }
+        lettersInWord.get(nr).setText(currentLevel.correct_letters[nr].toUpperCase(Locale.US));
+        lettersInWord.get(nr).setTextColor(getResources().getColor(R.color.color_greencorrect));
+        lettersInWord.get(nr).setBackgroundResource(R.drawable.letter_button);
+        lettersInWord.get(nr).setClickable(false);
+        for (int i = 0; i < letters.size(); i++) {
+            if (currentLevel.correct_letters[nr].equalsIgnoreCase((String) letters.get(i).getText())) {
+                letters.get(i).setVisibility(Button.INVISIBLE);
+                currentLevel.woord_letters[nr] = (String) letters.get(i).getText();
+                currentLevel.woord_positie[nr] = i;
+                break;
+            }
+        }
+        if (!currentLevel.lettersAreClickable()) {
+            checkLevel();
+        }
     }
 
     private void showNotEnoughMoneyDialog() {

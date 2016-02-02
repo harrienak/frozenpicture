@@ -10,9 +10,14 @@
 
     <RelativeLayout
         android:id="@+id/frame_container"
-        android:layout_width="300dp"
-        android:layout_height="360dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/frame2"/>
 
         <RelativeLayout
             android:id="@+id/level_image_container"
@@ -44,29 +49,12 @@
             </FrameLayout>
         </RelativeLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/frame" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/frame_bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-25dp"/>
-
 
         <com.geckoapps.raaddeplaat.model.Toolbar
             android:id="@+id/level_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"></com.geckoapps.raaddeplaat.model.Toolbar>
-       <!-- <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-25dp"
-            android:src="@drawable/frame_top" />-->
 
 
         <LinearLayout
@@ -77,7 +65,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal"
             android:gravity="center">
 
@@ -112,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/frame_container"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:visibility="visible"
         android:weightSum="1">
@@ -401,5 +389,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
+        android:visibility="gone"
         ads:adUnitId="@string/banner_ad_unit_id_levelscreen" />
 </RelativeLayout>

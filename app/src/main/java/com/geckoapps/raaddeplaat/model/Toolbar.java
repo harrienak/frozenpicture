@@ -3,6 +3,7 @@ package com.geckoapps.raaddeplaat.model;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
@@ -12,10 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.geckoapps.raaddeplaat.R;
+import com.geckoapps.raaddeplaat.activity.ShopActivity;
 import com.geckoapps.raaddeplaat.utils.Utils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -117,5 +120,11 @@ public class Toolbar extends RelativeLayout {
         progressAnimator.setDuration(1000);
         progressAnimator.setInterpolator(new AccelerateInterpolator());
         progressAnimator.start();
+    }
+
+    @OnClick(R.id.toolbar_coins)
+    public void openShop(){
+        Intent i = new Intent(context, ShopActivity.class);
+        context.startActivity(i);
     }
 }

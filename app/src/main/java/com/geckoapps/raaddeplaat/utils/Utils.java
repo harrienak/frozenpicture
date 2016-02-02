@@ -15,7 +15,8 @@ public class Utils {
     public static int PRIZE_HACK = 5;
     public static int PRIZE_SHUFFLE = 10;
     public static int PRIZE_FOR_COIN = 1;
-
+    public static int PRIZE_HINT = 60;
+    public static int PRIZE_BOMB = 90;
 
     public static SharedPreferences getSettings(Context context){
         return context.getSharedPreferences(Utils.SHARED_SETTINGS, Context.MODE_PRIVATE);
