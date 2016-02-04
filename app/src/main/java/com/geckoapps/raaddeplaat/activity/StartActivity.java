@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.geckoapps.raaddeplaat.R;
 import com.geckoapps.raaddeplaat.utils.Utils;
@@ -15,7 +16,7 @@ import butterknife.OnClick;
 
 public class StartActivity extends Activity {
     @Bind(R.id.start_play)
-    LinearLayout playScreen;
+    RelativeLayout playScreen;
     @Bind(R.id.start_load)
     LinearLayout loadScreen;
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.geckoapps.raaddeplaat.activity.StartActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.geckoapps.raaddeplaat.activity.StartActivity"
+    android:background="@drawable/background">
 
     <LinearLayout
         android:id="@+id/start_load"
@@ -11,27 +12,50 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:orientation="vertical">
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView android:text="Loading levels, ff wachte dus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/start_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
-            <Button android:id="@+id/button_play"
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading levels, ff wachte dus"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/start_play"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="visible"
+        >
+
+        <LinearLayout
+            android:id="@+id/start_plank"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/footer"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PLAY"/>
-    </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/start_guy"
+            android:src="@drawable/oaken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/start_plank"
+            android:scaleType="fitEnd"/>
+
+    </RelativeLayout>
 </RelativeLayout>
