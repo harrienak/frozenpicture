@@ -7,7 +7,7 @@
 
     <dimen name="level_image_size">265dp</dimen>
     <dimen name="level_button_letter_height">35dp</dimen>
-    <dimen name="level_button_letter_width">35dp</dimen>
-    <dimen name="level_button_answer_height">28dp</dimen>
-    <dimen name="level_button_answer_width">28dp</dimen>
+    <dimen name="level_button_letter_width">30dp</dimen>
+    <dimen name="level_button_answer_height">30dp</dimen>
+    <dimen name="level_button_answer_width">26dp</dimen>
 </resources>

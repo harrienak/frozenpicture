@@ -45,6 +45,9 @@ public class LevelActivity extends Activity {
     LinearLayout blockContainer;
     @Bind(R.id.level_toolbar)
     Toolbar toolbar;
+    @Bind(R.id.level_letters_container)LinearLayout lettersContainer;
+    @Bind(R.id.level_next_container)LinearLayout nextContainer;
+    @Bind(R.id.level_button_container)LinearLayout buttonContainer;
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
@@ -124,6 +127,26 @@ public class LevelActivity extends Activity {
     public void share() {
         toolbar.addCoins(100);
     }
+
+    @OnClick(R.id.level_next_button)
+    public void nextLevel(){
+        toolbar.addLevel(1);
+        initLevel();
+        setLevel();
+    }
+
+    public void setNextContainerLayout(){
+        nextContainer.setVisibility(View.VISIBLE);
+        lettersContainer.setVisibility(View.GONE);
+        buttonContainer.setVisibility(View.INVISIBLE);
+    }
+
+    public void setLetterContainerLayout(){
+        nextContainer.setVisibility(View.GONE);
+        lettersContainer.setVisibility(View.VISIBLE);
+        buttonContainer.setVisibility(View.VISIBLE);
+    }
+
 
     boolean canRemove = true;
 
@@ -256,6 +279,7 @@ public class LevelActivity extends Activity {
     private void setLevel() {
         if (currentLevel != null) {
             //clear image view
+            setLetterContainerLayout();
 
             //set block
             blockContainer.removeAllViews();
@@ -295,7 +319,7 @@ public class LevelActivity extends Activity {
                 b.setVisibility(Button.GONE);
                 b.setText("");
                 LinearLayout.LayoutParams params = (LayoutParams) b.getLayoutParams();
-                params.setMargins(0, 0, 0, 0);
+                params.setMargins(5, 0, 5, 0);
                 b.setLayoutParams(params);
             }
             int currenti = 0;
@@ -303,7 +327,7 @@ public class LevelActivity extends Activity {
             int currentPositie = 0;
 
             //1 word
-            if (currentLevel.getWoorden().size() == 1 && currentLevel.getAnswer().length() <= 10) {
+            if (currentLevel.getWoorden().size() == 1 && currentLevel.getAnswer().length() <= 12) {
                 for (int i = 0; i < woord.size(); i++) {
                     if (i < currentLevel.getAnswer().length()) {
                         woord.get(i).setVisibility(Button.VISIBLE);
@@ -328,7 +352,7 @@ public class LevelActivity extends Activity {
             }
             //2 words
             else if (currentLevel.getWoorden().size() == 2) {
-                if ((currentLevel.getWoorden().get(0).length() + currentLevel.getWoorden().get(1).length()) <= 10) {
+                if ((currentLevel.getWoorden().get(0).length() + currentLevel.getWoorden().get(1).length()) <= 12) {
                     for (int i = 0; i < currentLevel.getWoorden().get(0).length(); i++) {
                         woord.get(i).setVisibility(Button.VISIBLE);
                         lettersInWord.add(woord.get(i));
@@ -336,7 +360,7 @@ public class LevelActivity extends Activity {
                         currentPositie++;
                         if (i == currentLevel.getWoorden().get(0).length() - 1) {
                             LinearLayout.LayoutParams params = (LayoutParams) woord.get(i).getLayoutParams();
-                            params.setMargins(0, 0, 20, 0);
+                            params.setMargins(5, 0, 20, 0);
                             woord.get(i).setLayoutParams(params);
                         }
                     }
@@ -348,11 +372,11 @@ public class LevelActivity extends Activity {
                         currentPositie++;
                     }
                     currenti = currenti + currentLevel.getWoorden().get(1).length();
-                    for (int i = currenti; i < 20; i++) {
+                    for (int i = currenti; i < 12; i++) {
                         woord.get(i).setVisibility(Button.GONE);
                     }
                 } else {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 12; i++) {
                         if (i < currentLevel.getWoorden().get(0).length()) {
                             woord.get(i).setVisibility(Button.VISIBLE);
                             lettersInWord.add(woord.get(i));
@@ -361,8 +385,8 @@ public class LevelActivity extends Activity {
                         } else
                             woord.get(i).setVisibility(Button.GONE);
                     }
-                    for (int i = 10; i < 20; i++) {
-                        if (i < (10 + currentLevel.getWoorden().get(1).length())) {
+                    for (int i = 12; i < 12; i++) {
+                        if (i < (12 + currentLevel.getWoorden().get(1).length())) {
                             lettersInWord.add(woord.get(i));
                             woord.get(i).setVisibility(Button.VISIBLE);
                             currentLevel.origin_positie[i] = currentPositie;
@@ -382,12 +406,12 @@ public class LevelActivity extends Activity {
                     lettersInWord.add(woord.get(i));
                     if (i == currentLevel.getWoorden().get(0).length() - 1) {
                         LinearLayout.LayoutParams params = (LayoutParams) woord.get(i).getLayoutParams();
-                        params.setMargins(0, 0, 20, 0);
+                        params.setMargins(5, 0, 20, 0);
                         woord.get(i).setLayoutParams(params);
                     }
                 }
                 currenti = currentLevel.getWoorden().get(0).length();
-                if ((currentLevel.getWoorden().get(0).length() + currentLevel.getWoorden().get(1).length()) <= 10) {
+                if ((currentLevel.getWoorden().get(0).length() + currentLevel.getWoorden().get(1).length()) <= 12) {
                     for (int i = currenti; i < (currenti + currentLevel.getWoorden().get(1).length()); i++) {
                         woord.get(i).setVisibility(Button.VISIBLE);
                         lettersInWord.add(woord.get(i));
@@ -396,11 +420,11 @@ public class LevelActivity extends Activity {
                     }
                     currenti = currenti + currentLevel.getWoorden().get(1).length();
                 }
-                for (int i = currenti; i < 10; i++) {
+                for (int i = currenti; i < 12; i++) {
                     woord.get(i).setVisibility(Button.GONE);
                 }
-                for (int i = 10; i < woord.size(); i++) {
-                    if (i < (10 + currentLevel.getWoorden().get(2).length())) {
+                for (int i = 12; i < woord.size(); i++) {
+                    if (i < (12 + currentLevel.getWoorden().get(2).length())) {
                         woord.get(i).setVisibility(Button.VISIBLE);
                         lettersInWord.add(woord.get(i));
                         currentLevel.origin_positie[i] = currentPositie;
@@ -410,58 +434,11 @@ public class LevelActivity extends Activity {
                     }
                 }
             }
-            //4 words
-            else if (currentLevel.getWoorden().size() == 4) {
-                for (int i = 0; i < currentLevel.getWoorden().get(0).length(); i++) {
-                    woord.get(i).setVisibility(Button.VISIBLE);
-                    currentLevel.origin_positie[i] = currentPositie;
-                    currentPositie++;
-                    lettersInWord.add(woord.get(i));
-                    if (i == currentLevel.getWoorden().get(0).length() - 1) {
-                        LinearLayout.LayoutParams params = (LayoutParams) woord.get(i).getLayoutParams();
-                        params.setMargins(0, 0, 20, 0);
-                        woord.get(i).setLayoutParams(params);
-                    }
-                }
-                currenti = currentLevel.getWoorden().get(0).length();
-                for (int i = currenti; i < (currenti + currentLevel.getWoorden().get(1).length()); i++) {
-                    woord.get(i).setVisibility(Button.VISIBLE);
-                    lettersInWord.add(woord.get(i));
-                    currentLevel.origin_positie[i] = currentPositie;
-                    currentPositie++;
-                }
-                currenti = currenti + currentLevel.getWoorden().get(1).length();
-                for (int i = currenti; i < 10; i++) {
-                    woord.get(i).setVisibility(Button.GONE);
-                }
-                for (int i = 10; i < (10 + currentLevel.getWoorden().get(2).length()); i++) {
-                    woord.get(i).setVisibility(Button.VISIBLE);
-                    currentLevel.origin_positie[i] = currentPositie;
-                    currentPositie++;
-                    lettersInWord.add(woord.get(i));
-                    if (i == (10 + currentLevel.getWoorden().get(2).length() - 1)) {
-                        LinearLayout.LayoutParams params = (LayoutParams) woord.get(i).getLayoutParams();
-                        params.setMargins(0, 0, 20, 0);
-                        woord.get(i).setLayoutParams(params);
-                    }
-                }
-                currenti = 10 + currentLevel.getWoorden().get(2).length();
-                for (int i = currenti; i < (currenti + currentLevel.getWoorden().get(3).length()); i++) {
-                    woord.get(i).setVisibility(Button.VISIBLE);
-                    lettersInWord.add(woord.get(i));
-                    currentLevel.origin_positie[i] = currentPositie;
-                    currentPositie++;
-                }
-                currenti = currenti + currentLevel.getWoorden().get(3).length();
-                for (int i = currenti; i < 20; i++) {
-                    woord.get(i).setVisibility(Button.GONE);
-                }
-            }
 
             for (Button l : lettersInWord) {
                 l.setClickable(true);
-                l.setTextColor(Color.BLACK);
-                l.setBackgroundResource(R.drawable.achtergrond_letter_woord);
+                l.setTextColor(Color.WHITE);
+                l.setBackgroundResource(R.drawable.btn_letter_empty);
             }
         }
     }
@@ -509,14 +486,14 @@ public class LevelActivity extends Activity {
         woord.add((Button) findViewById(R.id.buttonWoord9));
         woord.add((Button) findViewById(R.id.buttonWoord10));
         woord.add((Button) findViewById(R.id.buttonWoord11));
-        woord.add((Button) findViewById(R.id.buttonWoord12));
+        /*woord.add((Button) findViewById(R.id.buttonWoord12));
         woord.add((Button) findViewById(R.id.buttonWoord13));
         woord.add((Button) findViewById(R.id.buttonWoord14));
         woord.add((Button) findViewById(R.id.buttonWoord15));
         woord.add((Button) findViewById(R.id.buttonWoord16));
         woord.add((Button) findViewById(R.id.buttonWoord17));
         woord.add((Button) findViewById(R.id.buttonWoord18));
-        woord.add((Button) findViewById(R.id.buttonWoord19));
+        woord.add((Button) findViewById(R.id.buttonWoord19));*/
 
         for (int i = 0; i < letters.size(); i++) {
             final int i2 = i;
@@ -599,7 +576,7 @@ public class LevelActivity extends Activity {
     private void onWoordLetterClick(int i) {
         if (lettersInWord.get(currentLevel.origin_positie[i]).length() > 0) {
             lettersInWord.get(currentLevel.origin_positie[i]).setText("");
-            lettersInWord.get(currentLevel.origin_positie[i]).setBackgroundResource(R.drawable.achtergrond_letter_woord);
+            lettersInWord.get(currentLevel.origin_positie[i]).setBackgroundResource(R.drawable.btn_letter_empty);
             letters.get(currentLevel.woord_positie[currentLevel.origin_positie[i]]).setVisibility(Button.VISIBLE);
 
             currentLevel.woord_letters[currentLevel.origin_positie[i]] = "";
@@ -625,9 +602,7 @@ public class LevelActivity extends Activity {
                             lettersInWord.get(j2).setText(currentLevel.correct_letters[j2].toUpperCase(Locale.US));
 
                             //LEVEL COMPLETE
-                            Toast.makeText(LevelActivity.this, "JEZUS WAT BEN JE GOED! BETALEN NOU!", Toast.LENGTH_SHORT).show();
-                            toolbar.addLevel(1);
-                            initLevel();
+                            setNextContainerLayout();
                         }
 
                         public void onAnimationRepeat(Animation arg0) {
