@@ -7,7 +7,7 @@
         android:duration="@integer/duration_anim" />
 
     <item
-        android:drawable="@drawable/block_coin_fade"
+        android:drawable="@drawable/block_coin"
         android:duration="@integer/duration_anim" />
 
     <item

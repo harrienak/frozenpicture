@@ -3,7 +3,7 @@
     android:oneshot="true">
 
     <item
-        android:drawable="@drawable/block_sweep"
+        android:drawable="@drawable/block_axe"
         android:duration="@integer/duration_anim" />
 
     <item

@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.geckoapps.raaddeplaat.activity.StartActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/fp_background">
 
     <LinearLayout
         android:id="@+id/start_load"

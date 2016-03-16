@@ -7,10 +7,10 @@
         android:duration="@integer/duration_anim" />
 
     <item
-        android:drawable="@drawable/block_sweep_fade"
+        android:drawable="@drawable/block_axe"
         android:duration="@integer/duration_anim" />
 
     <item
-        android:drawable="@drawable/block_sweep"
+        android:drawable="@drawable/block_axe"
         android:duration="@integer/duration_anim" />
 </animation-list>
