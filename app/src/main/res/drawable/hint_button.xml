@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true"
-   android:drawable="@drawable/hint_button" /> <!-- pressed -->
+   android:drawable="@drawable/btn_light_push" /> <!-- pressed -->
   <item android:state_focused="true"
-   android:drawable="@drawable/hint_button" /> <!-- focused -->
-  <item android:drawable="@drawable/hint_button" /> <!-- default -->
+   android:drawable="@drawable/btn_light_push" /> <!-- focused -->
+  <item android:drawable="@drawable/btn_light1" /> <!-- default -->
 </selector>

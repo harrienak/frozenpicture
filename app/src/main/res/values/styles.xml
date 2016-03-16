@@ -7,22 +7,29 @@
     
     <style name="style_letter_button">
         <item name="android:background">@drawable/letter_button</item>
-        <item name="android:paddingBottom">5dp</item>
         <item name="android:textColor">@color/color_white</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:shadowColor">@android:color/darker_gray</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">-1dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:shadowColor">@color/color_shadow_text</item>
         <item name="android:shadowDy">8</item>
-        <item name="android:shadowRadius">0.01</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowRadius">5</item>
         <item name="android:layout_marginLeft">2dp</item>
         <item name="android:layout_marginRight">2dp</item>
     </style>
 
     <style name="style_letter_answer">
         <item name="android:background">@drawable/btn_letter_empty</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">-0dp</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:shadowColor">@color/color_shadow_text</item>
+        <item name="android:shadowDy">8</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowRadius">5</item>
         <item name="android:layout_marginRight">1dp</item>
     </style>
 

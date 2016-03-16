@@ -39,4 +39,5 @@ public class Utils {
     public static void setSharedPref(Context context, String name, int value){
         getSettings(context).edit().putInt(name, value).commit();
     }
+
 }

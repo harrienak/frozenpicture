@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
@@ -25,12 +26,16 @@ import butterknife.OnClick;
  * Created by Sjoerd on 21-1-2016.
  */
 public class Toolbar extends RelativeLayout {
+    @Bind(R.id.toolbar_level_title) TextView levelTitle;
     @Bind(R.id.toolbar_level) TextView level;
     @Bind(R.id.toolbar_coins)
-    Button coins;
+    TextView coins;
     @Bind(R.id.toolbar_progressbar)ProgressBar progressBar;
     private Context context;
     private SharedPreferences settings;
+    private Typeface typeface;
+
+
 
     public Toolbar(Context context) {
         super(context);
@@ -50,11 +55,21 @@ public class Toolbar extends RelativeLayout {
     private void init(Context context){
         this.context = context;
         settings = context.getSharedPreferences(Utils.SHARED_SETTINGS, Context.MODE_PRIVATE);
+        typeface = Typeface.createFromAsset(context.getAssets(),
+                "font/PAYTONEONE.TTF");
+
 
         inflate(getContext(), R.layout.toolbar, this);
         ButterKnife.bind(this, this);
+        levelTitle.setTypeface(typeface);
+        level.setTypeface(typeface);
+        coins.setTypeface(typeface);
+
+
         setCoins();
         setLevel();
+
+
     }
 
     public void setCoins(){

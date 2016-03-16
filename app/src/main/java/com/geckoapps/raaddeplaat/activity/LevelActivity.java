@@ -238,8 +238,9 @@ public class LevelActivity extends Activity {
             }
         }
         lettersInWord.get(nr).setText(currentLevel.correct_letters[nr].toUpperCase(Locale.US));
-        lettersInWord.get(nr).setTextColor(getResources().getColor(R.color.color_greencorrect));
-        lettersInWord.get(nr).setBackgroundResource(R.drawable.letter_button);
+        lettersInWord.get(nr).setBackgroundResource(R.drawable.letter_button_correct);
+
+
         lettersInWord.get(nr).setClickable(false);
         for (int i = 0; i < letters.size(); i++) {
             if (currentLevel.correct_letters[nr].equalsIgnoreCase((String) letters.get(i).getText())) {
@@ -559,14 +560,15 @@ public class LevelActivity extends Activity {
                 lettersInWord.get(i).startAnimation(load);
                 load.setAnimationListener(new AnimationListener() {
                     public void onAnimationEnd(Animation animation) {
-                        lettersInWord.get(i2).setTextColor(Color.BLACK);
+                        lettersInWord.get(i2).setBackgroundResource(R.drawable.letter_button);
                     }
 
                     public void onAnimationRepeat(Animation arg0) {
                     }
 
                     public void onAnimationStart(Animation arg0) {
-                        lettersInWord.get(i2).setTextColor(getResources().getColor(R.color.color_redfail));
+                        lettersInWord.get(i2).setBackgroundResource(R.drawable.letter_button_false);
+
                     }
                 });
             }
@@ -589,13 +591,11 @@ public class LevelActivity extends Activity {
             l.setClickable(false);
         }
         if (i == lettersInWord.size()) {
-
-
             for (int j = 0; j < lettersInWord.size(); j++) {
                 final int j2 = j;
                 Animation load = AnimationUtils.loadAnimation(this, R.anim.correct2);
                 lettersInWord.get(j).startAnimation(load);
-
+                lettersInWord.get(j).setBackgroundResource(R.drawable.letter_button_correct);
                 if (j2 == 1) {
                     load.setAnimationListener(new AnimationListener() {
                         public void onAnimationEnd(Animation animation) {
@@ -619,7 +619,6 @@ public class LevelActivity extends Activity {
 
             ani.setAnimationListener(new AnimationListener() {
                 public void onAnimationEnd(Animation animation) {
-                    //lettersInWord.get(i).setTextColor(Color.BLACK);
                     singleAnimation((i + 1));
                 }
 

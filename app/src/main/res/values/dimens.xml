@@ -10,4 +10,6 @@
     <dimen name="level_button_letter_width">30dp</dimen>
     <dimen name="level_button_answer_height">30dp</dimen>
     <dimen name="level_button_answer_width">26dp</dimen>
+    <dimen name="image_size">10dp</dimen>
+    <dimen name="frame_size">20dp</dimen>
 </resources>

@@ -4,4 +4,5 @@
     <color name="color_greencorrect">#87ae35</color>
     <color name="color_redfail">#cf4242</color>
     <color name="color_white">#ffffff</color>
+    <color name="color_shadow_text">#006ec3</color>
 </resources>

@@ -24,6 +24,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:progressDrawable="@drawable/progress"
                 android:max="100"
                 android:progress="45" />
 
@@ -39,7 +40,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header"
+        android:background="@drawable/levelscreen"
         android:visibility="visible">
 
         <LinearLayout
@@ -53,11 +54,14 @@
                 android:id="@+id/toolbar_level_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LEVEL" />
+                android:textColor="#FFFFFF"
+                android:text="Level" />
 
             <TextView
                 android:id="@+id/toolbar_level"
                 android:layout_width="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -74,10 +78,10 @@
                 android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="14dp"
-                    android:src="@drawable/star" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/fp_star_on" />
 
             </LinearLayout>
 
@@ -88,10 +92,10 @@
                 android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="6dp"
-                    android:src="@drawable/star" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/fp_star_on" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,10 +105,10 @@
                 android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/star" />
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/fp_star_on" />
             </LinearLayout>
         </LinearLayout>
 
@@ -113,13 +117,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2.65"
-            android:gravity="center">
-
-            <Button
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fp_coin"/>
+            <TextView
+                android:paddingLeft="2dp"
                 android:id="@+id/toolbar_coins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/coin" />
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:text="43"/>
         </LinearLayout>
 
     </LinearLayout>

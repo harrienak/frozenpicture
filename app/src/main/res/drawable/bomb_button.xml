@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true"
-   android:drawable="@drawable/bomb_button" /> <!-- pressed -->
+   android:drawable="@drawable/btn_bomb_push" /> <!-- pressed -->
   <item android:state_focused="true"
-   android:drawable="@drawable/bomb_button" /> <!-- focused -->
-  <item android:drawable="@drawable/bomb_button" /> <!-- default -->
+   android:drawable="@drawable/btn_bomb_push" /> <!-- focused -->
+  <item android:drawable="@drawable/btn_bomb1" /> <!-- default -->
 </selector>
