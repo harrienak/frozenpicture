@@ -122,6 +122,8 @@ public class Level {
             }
         }
         Collections.shuffle(shuffledBlocks);
+
+        showBlocks();
     }
 
 
@@ -136,14 +138,10 @@ public class Level {
     public void showBlocks() {
         for (int x = 0; x < getTiles(); x++) {
             for (int y = 0; y < getTiles(); y++) {
-                if (x == (getTiles() - 1) && y == (getTiles() - 1)) {
-                    getBlock(x, y).fadeIn(context, image);
-                } else {
-                    getBlock(x, y).fadeIn(context, null);
-                }
-
+                getBlock(x,y).setVisibility(View.VISIBLE);
             }
         }
+        image.setVisibility(View.VISIBLE);
     }
 
     public void removeBlocksForTurn() {

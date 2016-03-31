@@ -54,13 +54,13 @@
                 android:id="@+id/toolbar_level_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                style="@style/textViewStyle"
                 android:text="Level" />
 
             <TextView
                 android:id="@+id/toolbar_level"
                 android:layout_width="wrap_content"
-                android:textColor="#FFFFFF"
+                style="@style/textViewStyle"
                 android:textSize="24sp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -127,9 +127,9 @@
                 android:id="@+id/toolbar_coins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:text="43"/>
+                style="@style/textViewStyle"
+                android:textSize="18sp"
+                android:text="4312"/>
         </LinearLayout>
 
     </LinearLayout>

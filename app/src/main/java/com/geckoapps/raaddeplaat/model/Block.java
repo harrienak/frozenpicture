@@ -36,31 +36,6 @@ public class Block extends ImageView{
         setBackgroundResource(R.drawable.block);
     }
 
-    public void fadeIn(Context context, final ImageView image){
-        Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.block_fadein);
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if(image != null){
-                    image.setVisibility(View.VISIBLE);
-                }
-                setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        this.setAnimation(fadeIn);
-        fadeIn.start();
-    }
-
     public void fadeInBlock(){
         selected = true;
         if(hasCoin){

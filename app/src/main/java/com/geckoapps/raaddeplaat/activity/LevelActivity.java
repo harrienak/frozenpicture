@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.geckoapps.raaddeplaat.R;
@@ -48,6 +49,12 @@ public class LevelActivity extends Activity {
     @Bind(R.id.level_letters_container)LinearLayout lettersContainer;
     @Bind(R.id.level_next_container)LinearLayout nextContainer;
     @Bind(R.id.level_button_container)LinearLayout buttonContainer;
+    @Bind(R.id.level_completed_container)LinearLayout completedContainer;
+
+    @Bind(R.id.level_completed_title)TextView titleCompleted;
+    @Bind(R.id.level_completed_subtitle)TextView subtitleCompleted;
+    @Bind(R.id.level_completed_coins)TextView coinsCompleted;
+
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
@@ -81,7 +88,6 @@ public class LevelActivity extends Activity {
 
     private void initLevel() {
         getLevel();
-        setLevel();
         currentLevel.showBlocks();
 
         new Handler().postDelayed(new Runnable() {
@@ -90,7 +96,7 @@ public class LevelActivity extends Activity {
                 shuffleBlocks();
                 singleAnimationLetter(0);
             }
-        }, 1100);
+        }, 200);
     }
 
     @OnClick(R.id.button_axe)
@@ -132,19 +138,26 @@ public class LevelActivity extends Activity {
     public void nextLevel(){
         toolbar.addLevel(1);
         initLevel();
-        setLevel();
     }
 
     public void setNextContainerLayout(){
         nextContainer.setVisibility(View.VISIBLE);
         lettersContainer.setVisibility(View.GONE);
         buttonContainer.setVisibility(View.INVISIBLE);
+
+
+        blockContainer.setVisibility(View.GONE);
+        coinsCompleted.setText( "x" + "coins" );
+        completedContainer.setVisibility(View.VISIBLE);
     }
 
     public void setLetterContainerLayout(){
         nextContainer.setVisibility(View.GONE);
         lettersContainer.setVisibility(View.VISIBLE);
+        completedContainer.setVisibility(View.GONE);
         buttonContainer.setVisibility(View.VISIBLE);
+        blockContainer.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -515,6 +528,9 @@ public class LevelActivity extends Activity {
                 }
             });
         }
+        titleCompleted.setTypeface(typeface);
+        subtitleCompleted.setTypeface(typeface);
+        coinsCompleted.setTypeface(typeface);
     }
 
     private void onLetterClick(int i) {

@@ -3,8 +3,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.geckoapps.raaddeplaat.activity.StartActivity"
-    android:background="@drawable/fp_background">
+                android:background="@drawable/fp_background"
+                tools:context="com.geckoapps.raaddeplaat.activity.StartActivity">
 
     <LinearLayout
         android:id="@+id/start_load"
@@ -34,34 +34,76 @@
         android:visibility="visible"
         >
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/start_guy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/start_plank"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/oaken_frozen"
+            android:visibility="invisible"/>
+
+        <RelativeLayout
             android:id="@+id/start_plank"
             android:layout_width="match_parent"
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/footer"
-            android:gravity="center">
+            android:background="@drawable/footer">
 
-            <Button
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:scaleType="fitStart"
+                android:src="@drawable/snow_left"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitEnd"
+                android:src="@drawable/snow_right"/>
+
+            <ImageView
                 android:id="@+id/button_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PLAY"/>
-        </LinearLayout>
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/play_button"/>
+        </RelativeLayout>
+
 
         <ImageView
-            android:id="@+id/start_guy"
-            android:src="@drawable/oaken"
+            android:id="@+id/start_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/start_plank"
-            android:scaleType="fitEnd"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:src="@drawable/logo2"
+            android:visibility="invisible"/>
 
-        <ImageView
+
+        <TextView
+            android:id="@+id/start_cloud"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/fp_logo"
-            android:layout_centerHorizontal="true"/>
+            android:layout_below="@id/start_logo"
+            android:background="@drawable/cloud"
+            android:gravity="center_horizontal"
+            android:paddingBottom="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:text="Joehoe, \nBig summer blowout! I accidently left my window open, its very cold!\nCan you help me please?"
+            android:textColor="#6C6C6C"
+            android:textSize="15sp"
+            android:visibility="invisible"/>
+
 
     </RelativeLayout>
 </RelativeLayout>

@@ -50,6 +50,64 @@
                     android:orientation="vertical">
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/level_completed_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="1"
+                    android:background="@color/black_transparnt"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/level_completed_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Level completed"
+                        style="@style/textViewStyle"
+                        android:textSize="24sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/level_completed_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Good Job!!"
+                        style="@style/textViewStyle"
+                        android:textSize="38sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|center_horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                           >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/fp_coin"/>
+
+                            <TextView
+                                android:id="@+id/level_completed_coins"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/textViewStyle"
+                                android:textSize="34sp"
+                                android:text="x 3"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </FrameLayout>
         </RelativeLayout>
     </LinearLayout>
