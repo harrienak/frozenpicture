@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,19 +50,31 @@ public class LevelActivity extends Activity {
     Toolbar toolbar;
     @Bind(R.id.level_letters_container)LinearLayout lettersContainer;
     @Bind(R.id.level_next_container)LinearLayout nextContainer;
-    @Bind(R.id.level_button_container)LinearLayout buttonContainer;
+    @Bind(R.id.level_button_container)RelativeLayout
+            buttonContainer;
     @Bind(R.id.level_completed_container)LinearLayout completedContainer;
+    @Bind(R.id.level_tutorial_overlay)LinearLayout tutorialContainer;
 
     @Bind(R.id.level_completed_title)TextView titleCompleted;
     @Bind(R.id.level_completed_subtitle)TextView subtitleCompleted;
     @Bind(R.id.level_completed_coins)TextView coinsCompleted;
-
+    @Bind(R.id.level_guy) ImageView guy;
+    @Bind(R.id.level_cloud)TextView cloud;
+    @Bind(R.id.level_overlay)LinearLayout overlay;
+    @Bind(R.id.buttonLetterHint)Button hint;
+    @Bind(R.id.buttonBom)Button bom;
+    @Bind(R.id.button_axe)Button axe;
+    @Bind(R.id.tutorial_axe)Button axeTutorial;
+    @Bind(R.id.button_shuffle)Button shuffleButton;
+    @Bind(R.id.button_share)Button shareButton;
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
     private Typeface typeface;
     private DatabaseHelper db;
+    private boolean tutorialGoing = false;
 
+    public static boolean progressGoing = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,36 +102,45 @@ public class LevelActivity extends Activity {
 
     private void initLevel() {
         getLevel();
+        setLevel();
         currentLevel.showBlocks();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 shuffleBlocks();
-                singleAnimationLetter(0);
+                if (Utils.getSharedPref(LevelActivity.this, Utils.SHARED_LEVEL) == 1) {
+                    checkTutorial();
+                } else {
+                    singleAnimationLetter(0);
+                }
             }
         }, 200);
     }
 
     @OnClick(R.id.button_axe)
     public void removeBlocks() {
-        if (currentLevel.isHasShuffledBlocks()) {
-            if (toolbar.spendCoins(Utils.PRIZE_HACK)) {
-                currentLevel.removeBlocksForTurn();
+        if(!tutorialGoing || !LevelActivity.progressGoing) {
+            if (currentLevel.isHasShuffledBlocks()) {
+                if (toolbar.spendCoins(Utils.PRIZE_HACK)) {
+                    currentLevel.removeBlocksForTurn();
+                } else {
+                    showNotEnoughMoneyDialog();
+                }
             } else {
-                showNotEnoughMoneyDialog();
+                showDialog("ga nou shufflen", "je moet eerst shufflen daarna kun je hakken", "oke", "oke");
             }
-        } else {
-            showDialog("ga nou shufflen", "je moet eerst shufflen daarna kun je hakken", "oke", "oke");
         }
     }
 
     @OnClick(R.id.button_shuffle)
     public void shuffleBlocksCheck() {
-        if (toolbar.spendCoins(Utils.PRIZE_SHUFFLE)) {
-            shuffleBlocks();
-        } else {
-            showNotEnoughMoneyDialog();
+        if(!tutorialGoing || !LevelActivity.progressGoing) {
+            if (toolbar.spendCoins(Utils.PRIZE_SHUFFLE)) {
+                shuffleBlocks();
+            } else {
+                showNotEnoughMoneyDialog();
+            }
         }
     }
 
@@ -131,7 +154,9 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.button_share)
     public void share() {
-        toolbar.addCoins(100);
+        if(!tutorialGoing || !LevelActivity.progressGoing) {
+            toolbar.addCoins(100);
+        }
     }
 
     @OnClick(R.id.level_next_button)
@@ -144,10 +169,10 @@ public class LevelActivity extends Activity {
         nextContainer.setVisibility(View.VISIBLE);
         lettersContainer.setVisibility(View.GONE);
         buttonContainer.setVisibility(View.INVISIBLE);
-
+        tutorialContainer.setVisibility(View.GONE);
 
         blockContainer.setVisibility(View.GONE);
-        coinsCompleted.setText( "x" + "coins" );
+        coinsCompleted.setText("x" + "coins");
         completedContainer.setVisibility(View.VISIBLE);
     }
 
@@ -157,7 +182,7 @@ public class LevelActivity extends Activity {
         completedContainer.setVisibility(View.GONE);
         buttonContainer.setVisibility(View.VISIBLE);
         blockContainer.setVisibility(View.VISIBLE);
-
+        tutorialContainer.setVisibility(View.GONE);
     }
 
 
@@ -165,31 +190,33 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.buttonBom)
     public void removeLetters() {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.title_removeletters))
-                .setMessage(getString(R.string.text_removeletters) + " " + Utils.PRIZE_BOMB + " " + getString(R.string.coins_q))
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(!canRemove){
-                            Toast.makeText(LevelActivity.this, "you cant do this twice for 1 level", Toast.LENGTH_SHORT).show();
+        if(!tutorialGoing || !LevelActivity.progressGoing) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.title_removeletters))
+                    .setMessage(getString(R.string.text_removeletters) + " " + Utils.PRIZE_BOMB + " " + getString(R.string.coins_q))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!canRemove) {
+                                Toast.makeText(LevelActivity.this, "you cant do this twice for 1 level", Toast.LENGTH_SHORT).show();
+                            }
+                            if (toolbar.spendCoins(Utils.PRIZE_BOMB)) {
+                                canRemove = false;
+                                dialog.dismiss();
+                                removeLettersPeform();
+                            } else {
+                                dialog.dismiss();
+                                showNotEnoughMoneyDialog();
+                            }
                         }
-                        if (toolbar.spendCoins(Utils.PRIZE_BOMB)) {
-                            canRemove = false;
+                    })
+                    .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            removeLettersPeform();
-                        } else {
-                            dialog.dismiss();
-                            showNotEnoughMoneyDialog();
                         }
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setIcon(R.drawable.icon_remove)
-                .show();
+                    })
+                    .setIcon(R.drawable.icon_remove)
+                    .show();
+        }
     }
 
     private void removeLettersPeform() {
@@ -216,28 +243,30 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.buttonLetterHint)
     public void hintLetter() {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.title_hintletter))
-                .setMessage(getString(R.string.text_hintletter) + " " + Utils.PRIZE_HINT + " " + getString(R.string.coins_q))
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (!currentLevel.lettersAreClickable()) {
-                            //bovenbalk.showToastMsg(getString(R.string.toast_hint));
-                        } else if (toolbar.spendCoins(Utils.PRIZE_HINT)) {
-                            hintLetterPeform();
-                        } else {
-                            dialog.dismiss();
-                            showNotEnoughMoneyDialog();
+        if(!tutorialGoing || !LevelActivity.progressGoing) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.title_hintletter))
+                    .setMessage(getString(R.string.text_hintletter) + " " + Utils.PRIZE_HINT + " " + getString(R.string.coins_q))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!currentLevel.lettersAreClickable()) {
+                                //bovenbalk.showToastMsg(getString(R.string.toast_hint));
+                            } else if (toolbar.spendCoins(Utils.PRIZE_HINT)) {
+                                hintLetterPeform();
+                            } else {
+                                dialog.dismiss();
+                                showNotEnoughMoneyDialog();
+                            }
                         }
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setIcon(R.drawable.icon_hint)
-                .show();
+                    })
+                    .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setIcon(R.drawable.icon_hint)
+                    .show();
+        }
     }
 
     private void hintLetterPeform() {
@@ -328,6 +357,8 @@ public class LevelActivity extends Activity {
                 letters.get(i).setVisibility(Button.INVISIBLE);
                 letters.get(i).setText(currentLevel.getLetters().get(i).toUpperCase(Locale.US));
             }
+            bom.setVisibility(View.INVISIBLE);
+            hint.setVisibility(View.INVISIBLE);
 
             for (Button b : woord) {
                 b.setVisibility(Button.GONE);
@@ -514,8 +545,15 @@ public class LevelActivity extends Activity {
             letters.get(i).setTypeface(typeface);
             letters.get(i).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
-
-                    onLetterClick(i2);
+                    if (tutorialGoing) {
+                        if (i2 == 6) {
+                            tutorialOnLetterClick(i2);
+                        } else {
+                            cloud.setText(getString(R.string.tutorial_wrong_letter));
+                        }
+                    } else {
+                        onLetterClick(i2);
+                    }
                 }
             });
         }
@@ -531,10 +569,13 @@ public class LevelActivity extends Activity {
         titleCompleted.setTypeface(typeface);
         subtitleCompleted.setTypeface(typeface);
         coinsCompleted.setTypeface(typeface);
+        cloud.setTypeface(typeface);
+        shareButton.setTypeface(typeface);
+        shuffleButton.setTypeface(typeface);
     }
 
     private void onLetterClick(int i) {
-        if (currentLevel.lettersAreClickable()) {
+        if ( currentLevel.lettersAreClickable()) {
             letters.get(i).setVisibility(Button.INVISIBLE);
             //addLetterinWord((String) letters.get(i).getText());
 
@@ -663,6 +704,135 @@ public class LevelActivity extends Activity {
                 public void onAnimationStart(Animation arg0) {
                 }
             });
+        } else if(hint.getVisibility() == View.INVISIBLE){
+            Animation ani = AnimationUtils.loadAnimation(this, R.anim.letters);
+            hint.setVisibility(Button.VISIBLE);
+            hint.startAnimation(ani);
+            ani.setAnimationListener(new AnimationListener() {
+                public void onAnimationEnd(Animation animation) {
+                    singleAnimationLetter((i + 1));
+                }
+
+                public void onAnimationRepeat(Animation arg0) {
+                }
+
+                public void onAnimationStart(Animation arg0) {
+                }
+            });
+        } else if(bom.getVisibility() == View.INVISIBLE){
+            Animation ani = AnimationUtils.loadAnimation(this, R.anim.letters);
+            bom.setVisibility(Button.VISIBLE);
+            bom.startAnimation(ani);
+            ani.setAnimationListener(new AnimationListener() {
+                public void onAnimationEnd(Animation animation) {
+                    singleAnimationLetter((i + 1));
+                }
+
+                public void onAnimationRepeat(Animation arg0) {
+                }
+
+                public void onAnimationStart(Animation arg0) {
+                }
+            });
+        } else if (tutorialGoing){
+            showGuy2();
         }
+
     }
+
+    //TUTORIAL
+    private void checkTutorial(){
+        tutorialGoing = true;
+        overlay.setVisibility(View.VISIBLE);
+        axe.setVisibility(View.INVISIBLE);
+        animateGuy();
+        // add end: singleAnimationLetter(0);
+    }
+
+
+    private void animateGuy(){
+        guy.setBackgroundResource(R.drawable.anim_oaken);
+        Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
+        animGuy.setFillAfter(true);
+        animGuy.setFillEnabled(true);
+        cloud.setText(getString(R.string.tutorial_intro));
+        guy.setAnimation(animGuy);
+        animGuy.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                guy.setVisibility(View.VISIBLE);
+
+                cloud.setVisibility(View.VISIBLE);
+                tutorialContainer.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ((AnimationDrawable) guy.getBackground()).start();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animGuy.start();
+    }
+
+    @OnClick(R.id.tutorial_axe)
+    public void axeClick(){
+        guy.clearAnimation();
+        cloud.setVisibility(View.GONE);
+        overlay.setVisibility(View.GONE);
+        guy.setVisibility(View.GONE);
+        axeTutorial.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadeout));
+        axe.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
+        currentLevel.removeBlocksForTurn();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setLetterContainerLayout();
+                singleAnimationLetter(0);
+            }
+        }, 800);
+        ;
+    }
+
+    private void showGuy2(){
+        Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
+        animGuy.setFillAfter(true);
+        animGuy.setFillEnabled(true);
+        cloud.setText(getString(R.string.tutorial_letters));
+        guy.setAnimation(animGuy);
+        animGuy.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                guy.setVisibility(View.VISIBLE);
+                cloud.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ((AnimationDrawable) guy.getBackground()).start();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animGuy.start();
+    }
+
+    private void tutorialOnLetterClick(int i2) {
+        guy.clearAnimation();
+        guy.setVisibility(View.GONE);
+        cloud.setVisibility(View.GONE);
+        onLetterClick(i2);
+        tutorialGoing = false;
+    }
+
 }

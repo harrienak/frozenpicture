@@ -2,6 +2,25 @@
     <string name="app_name">Frozen Picture</string>
     <string name="banner_ad_unit_id_levelscreen">ca-app-pub-9432954813736069/5985300038</string>
 
+    <!--Main screen-->
+    <string name="start_loading_text">Levels are being loaded! Please wait a few moments:)</string>
+    <string name="start_text_cloud">Joehoe, \nBig summer blowout! I accidently left my window open, its very cold!\nCan you help me please?</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_level">Level</string>
+
+    <!-- Level screen -->
+    <string name="level_completed">Level completed</string>
+    <string name="level_goodjob">Good Job!!</string>
+    <string name="level_shuffle">Shuffle</string>
+    <string name="level_share">Share</string>
+
+    <!--Tutorial-->
+    <string name="tutorial_intro">Joehoe,\nUse the Axe to destroy the iceblocks to reveal the picture. If you use it to often it will cost you more money!</string>
+    <string name="tutorial_letters">Nice Job!\nThe picture is better visible, try to guess what it is by clicking on the letters. I will help you with this one: click on the letter G!</string>
+    <string name="tutorial_wrong_letter">Dont let me down! The first letter is a G, Im sure!!</string>
+
+    <!--De rest -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
 

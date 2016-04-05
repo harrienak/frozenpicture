@@ -3,14 +3,71 @@
     android:oneshot="true">
 
     <item
-        android:drawable="@drawable/block_axe"
+        android:drawable="@drawable/axe1"
         android:duration="@integer/duration_anim" />
 
     <item
-        android:drawable="@drawable/block_crack"
+        android:drawable="@drawable/axe2"
         android:duration="@integer/duration_anim" />
 
     <item
-        android:drawable="@drawable/block_empty"
+        android:drawable="@drawable/axe3"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe4"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe5"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe6"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe7"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe8"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe9"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe10"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe11"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe12"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe13"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe14"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe15"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe16"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe17"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe18"
+        android:duration="@integer/duration_anim" />
+skype    <item
+        android:drawable="@drawable/axe19"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe20"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe21"
+        android:duration="@integer/duration_anim" />
+    <item
+        android:drawable="@drawable/axe22"
         android:duration="@integer/duration_anim" />
 </animation-list>

@@ -32,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private final String LEVELS_NR = "nr";
     private final String LEVELS_ANSWER = "answer";
+    private final String LEVELS_ANSWER_NL = "answer_nl";
     private final String LEVELS_IMAGE = "image";
     private final String LEVELS_TILES = "tiles";
     private final String LEVELS_TILESPERTURN = "tilesPerTurn";
@@ -176,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             // ask the database object to create the cursor.
             cursor = myDataBase.query(TABLE_LEVELS, new String[]{LEVELS_NR,
-                            LEVELS_ANSWER, LEVELS_IMAGE, LEVELS_TILES, LEVELS_TILESPERTURN, LEVELS_COINS},
+                            LEVELS_ANSWER, LEVELS_IMAGE, LEVELS_TILES, LEVELS_TILESPERTURN, LEVELS_COINS, LEVELS_ANSWER_NL},
                     LEVELS_NR + " = " + getCurrentLevel, null, null, null, null);
 
             // move the cursor's pointer to position zero.
@@ -186,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // to the ArrayList.
             if (!cursor.isAfterLast()) {
                 do {
-                    return new Level(context, cursor.getInt(0), cursor.getString(2), cursor.getString(1), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), image, toolbar);
+                    return new Level(context, cursor.getInt(0), cursor.getString(2), cursor.getString(1), cursor.getString(6), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), image, toolbar);
                 }
                 // move the cursor's pointer up one position.
                 while (cursor.moveToNext());

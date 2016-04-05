@@ -8,12 +8,12 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.geckoapps.raaddeplaat.R;
+import com.geckoapps.raaddeplaat.activity.LevelActivity;
 import com.geckoapps.raaddeplaat.activity.ShopActivity;
 import com.geckoapps.raaddeplaat.utils.Utils;
 
@@ -120,6 +120,7 @@ public class Toolbar extends RelativeLayout {
             @Override
             public void onAnimationEnd(Animator animation) {
                 //progressBar.setProgress( (progressBar.getProgress() - progress)  );
+                LevelActivity.progressGoing = false;
             }
 
             @Override

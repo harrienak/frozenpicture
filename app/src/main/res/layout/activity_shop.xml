@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/fp_background"
     tools:context="com.geckoapps.raaddeplaat.activity.ShopActivity">
     <com.geckoapps.raaddeplaat.model.Toolbar
         android:id="@+id/level_toolbar"
@@ -11,8 +12,25 @@
         android:layout_height="wrap_content"
         android:visibility="visible"></com.geckoapps.raaddeplaat.model.Toolbar>
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shop_bordjes"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shop_kast"/>
+
+
     <Button android:id="@+id/button_tapjoy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="tapjoy"/>
+
+    </RelativeLayout>
+
 </LinearLayout>

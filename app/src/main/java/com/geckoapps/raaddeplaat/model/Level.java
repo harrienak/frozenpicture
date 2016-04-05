@@ -1,14 +1,17 @@
 package com.geckoapps.raaddeplaat.model;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.geckoapps.raaddeplaat.activity.LevelActivity;
 import com.geckoapps.raaddeplaat.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -22,6 +25,8 @@ public class Level {
     private String imageResource;
     private int tiles;
     private String answer;
+    private String answer_en;
+    private String answer_nl;
     private int tilesPerTurn;
     private int coins;
     private Block[][] blocks;
@@ -41,16 +46,23 @@ public class Level {
     private int numberOfLetters;
     private ArrayList<String> removeHelp;
 
-    public Level(Context context, int nr,  String imageResource, String answer, int tiles, int tilesPerTurn, int coins, ImageView image, Toolbar toolbar) {
+    public Level(Context context, int nr,  String imageResource, String answer_en, String answer_nl, int tiles, int tilesPerTurn, int coins, ImageView image, Toolbar toolbar) {
         this.nr = nr;
         this.context = context;
         this.imageResource = imageResource;
         this.tiles = tiles;
-        this.answer = answer;
+        this.answer_en = answer_en;
+        this.answer_nl = answer_nl;
         this.tilesPerTurn = tilesPerTurn;
         this.coins = coins;
         this.image = image;
         this.toolbar = toolbar;
+
+        if(Locale.getDefault().getLanguage().equals("nl")){
+            answer = this.answer_nl;
+        } else {
+            answer = this.answer_en;
+        }
 
         image.setVisibility(View.INVISIBLE);
         image.setImageResource(context.getResources().getIdentifier(imageResource,
@@ -64,24 +76,82 @@ public class Level {
             woorden.add(w[i]);
         }
 
-        for (int i = 0; i < answer.length(); i++) {
-            if (!answer.substring(i, i + 1).equals(" ")) {
-                letters.add(answer.substring(i, i + 1));
+        removeHelp = new ArrayList<>();
+        if(getNr() == 1){
+            if(Locale.getDefault().getLanguage().equals("nl")){
+                letters.add("H");removeHelp.add("H");
+                letters.add("I");removeHelp.add("I");
+                letters.add("I");removeHelp.add("I");
+                letters.add("F");removeHelp.add("F");
+                letters.add("T");removeHelp.add("T");
+                letters.add("A");removeHelp.add("A");
+                letters.add("G");removeHelp.add("G");
+                letters.add("L");removeHelp.add("L");
+
+                letters.add("W");removeHelp.add("W");
+                letters.add("Z");removeHelp.add("Z");
+                letters.add("J");removeHelp.add("J");
+                letters.add("V");removeHelp.add("V");
+                letters.add("R");removeHelp.add("R");
+                letters.add("K");removeHelp.add("K");
+                letters.add("E");removeHelp.add("E");
+                letters.add("E");removeHelp.add("E");
+                numberOfLetters = 8;
+
+
+            }else{
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+                letters.add("G");removeHelp.add("G");
+            }
+        } else {
+            for (int i = 0; i < answer.length(); i++) {
+                if (!answer.substring(i, i + 1).equals(" ")) {
+                    letters.add(answer.substring(i, i + 1));
+                }
+            }
+            numberOfLetters = letters.size();
+
+            for (int i = letters.size(); i < max_letters; i++) {
+                Random r = new Random();
+                String l = alfabet[r.nextInt(alfabet.length)];
+                letters.add(l);
+                removeHelp.add(l);
+            }
+            Collections.shuffle(this.letters);
+            Collections.shuffle(this.removeHelp);
+        }
+
+        resetData();
+        if(getNr() == 1){
+            if(Locale.getDefault().getLanguage().equals("nl")) {
+                correct_letters[0] = "G";
+                correct_letters[1] = "E";
+                correct_letters[2] = "I";
+                correct_letters[3] = "L";
+
+                correct_letters[4] = "W";
+                correct_letters[5] = "I";
+                correct_letters[6] = "J";
+                correct_letters[7] = "F";
+            } else{
+
             }
         }
-        numberOfLetters = letters.size();
-        resetData();
-
-        removeHelp = new ArrayList<>();
-        for (int i = letters.size(); i < max_letters; i++) {
-            Random r = new Random();
-            String l = alfabet[r.nextInt(alfabet.length)];
-            letters.add(l);
-            removeHelp.add(l);
-        }
-
-        Collections.shuffle(this.letters);
-        Collections.shuffle(this.removeHelp);
 
         toolbar.initProgressBar( (tiles*tiles) );
     }
@@ -93,7 +163,9 @@ public class Level {
         woord_positie = new int[numberOfLetters];
         origin_positie = new int[20];
         for (int i = 0; i < woord_letters.length; i++) {
-            correct_letters[i] = letters.get(i);
+            if(getNr() != 1) {
+                correct_letters[i] = letters.get(i);
+            }
             woord_letters[i] = "";
             woord_positie[i] = -1;
         }
@@ -166,9 +238,17 @@ public class Level {
             }
         }
         hasShuffledBlocks = true;
+        LevelActivity.progressGoing = true;
         toolbar.animateProgressBar(tilesPerTurn);
-        if(isHasShuffledBlocks()) {
-            shuffleBlocks();
+
+        if (isHasShuffledBlocks()) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    shuffleBlocks();
+                }
+            }, 1500);
         }
     }
 
@@ -253,6 +333,10 @@ public class Level {
         }
 
         return canClick;
+    }
+
+    public int getNr() {
+        return nr;
     }
 
     public boolean shuffleIsPossible(){

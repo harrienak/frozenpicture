@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading levels, ff wachte dus"/>
+            android:text="@string/start_loading_text"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -99,7 +99,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="10dp"
-            android:text="Joehoe, \nBig summer blowout! I accidently left my window open, its very cold!\nCan you help me please?"
+            android:text="@string/start_text_cloud"
             android:textColor="#6C6C6C"
             android:textSize="15sp"
             android:visibility="invisible"/>
