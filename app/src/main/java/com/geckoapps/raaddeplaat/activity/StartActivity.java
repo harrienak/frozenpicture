@@ -183,7 +183,7 @@ public class StartActivity extends Activity {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(snowflakeContainer.getChildCount() < 10){
+                if(snowflakeContainer.getChildCount() < 20){
                     StartActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             //create image add to layout

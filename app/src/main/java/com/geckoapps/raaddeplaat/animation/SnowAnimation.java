@@ -64,13 +64,13 @@ public class SnowAnimation extends AnimationSet {
         }
         rotateAnimation.setRepeatMode(Animation.RESTART);
         rotateAnimation.setRepeatCount(Animation.INFINITE);
-        rotateAnimation.setDuration(getRandom(5000, 7000));
+        rotateAnimation.setDuration(getRandom(10000, 13000));
         rotateAnimation.setFillAfter(true);
         this.addAnimation(rotateAnimation);
 
         //scale
         if(getRandomBoolean()){
-            ScaleAnimation scaleAnimation = new ScaleAnimation(0.4f, 1.2f, 0.4f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            ScaleAnimation scaleAnimation = new ScaleAnimation(0.4f, 1.2f, 0.4f, 1.2f, 0.5f, 0.5f);
             scaleAnimation.setDuration(getRandom(7500, 10000));
             scaleAnimation.setRepeatMode(Animation.REVERSE);
             scaleAnimation.setRepeatCount(Animation.INFINITE);
@@ -90,7 +90,7 @@ public class SnowAnimation extends AnimationSet {
         TranslateAnimation translateAnimationY = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 2500);
         translateAnimationY.setRepeatMode(Animation.RESTART);
         translateAnimationY.setRepeatCount(Animation.INFINITE);
-        translateAnimationY.setDuration(getRandom(14000, 28000));
+        translateAnimationY.setDuration(getRandom(26000, 38000));
         translateAnimationY.setFillAfter(true);
         this.addAnimation(translateAnimationY);
     }

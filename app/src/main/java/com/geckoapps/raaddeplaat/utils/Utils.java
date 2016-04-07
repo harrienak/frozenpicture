@@ -87,7 +87,7 @@ public class Utils {
 
         Random random =  new Random();
 
-        return random.nextInt(width);
+        return random.nextInt(width-200);
     }
 
 }
