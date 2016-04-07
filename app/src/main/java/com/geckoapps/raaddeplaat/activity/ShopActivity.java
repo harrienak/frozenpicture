@@ -62,6 +62,7 @@ public class ShopActivity extends Activity implements TJPlacementListener{
 
     private void init(){
         ButterKnife.bind(this);
+        toolbar.setShopToolbar();
     }
 
 

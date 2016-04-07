@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,7 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.geckoapps.raaddeplaat.R;
+import com.geckoapps.raaddeplaat.animation.SnowAnimation;
 import com.geckoapps.raaddeplaat.utils.Utils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +37,8 @@ public class StartActivity extends Activity {
     @Bind(R.id.start_logo) ImageView logo;
     @Bind(R.id.start_cloud) TextView cloud;
     @Bind(R.id.button_play) ImageView play;
+
+    @Bind(R.id.snowflakeContainer)RelativeLayout snowflakeContainer;
 
     Typeface typeface;
 
@@ -114,7 +121,6 @@ public class StartActivity extends Activity {
         animGuy.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
                 guy.setVisibility(View.VISIBLE);
             }
 
@@ -123,7 +129,6 @@ public class StartActivity extends Activity {
                 ((AnimationDrawable) guy.getBackground()).start();
                 animateCloud();
                 animateButton();
-
             }
 
             @Override
@@ -133,7 +138,6 @@ public class StartActivity extends Activity {
         });
         animGuy.start();
     }
-
 
     private void loadLevels() {
         if (Utils.isFirstTime(this)) {
@@ -149,8 +153,6 @@ public class StartActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run()
@@ -168,6 +170,34 @@ public class StartActivity extends Activity {
 
         guy.setBackgroundResource(R.drawable.anim_oaken);
         startAnimations();
+
+        startSnowAnimation();
+    }
+
+    private void startSnowAnimation() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(snowflakeContainer.getChildCount() < 20){
+                    StartActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //create image add to layout
+                            ImageView snowFlake = new ImageView(StartActivity.this);
+                            snowFlake.setBackgroundResource(R.drawable.fp_snowflake1);
+                            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(Utils.getLeftMargin(StartActivity.this), Utils.convertDpToPixel(-100, StartActivity.this), 0, 0);
+                            snowFlake.setLayoutParams(lp);
+                            snowflakeContainer.addView(snowFlake);
+
+                            AnimationSet animSnow1 = new SnowAnimation(StartActivity.this);
+                            snowFlake.setAnimation(animSnow1);
+                            animSnow1.start();
+                        }
+                    });
+                }
+            }
+        }, 0, 2000);
+
     }
 
     @OnClick(R.id.button_play)

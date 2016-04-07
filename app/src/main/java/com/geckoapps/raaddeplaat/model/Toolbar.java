@@ -2,11 +2,13 @@ package com.geckoapps.raaddeplaat.model;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -31,11 +33,10 @@ public class Toolbar extends RelativeLayout {
     @Bind(R.id.toolbar_coins)
     TextView coins;
     @Bind(R.id.toolbar_progressbar)ProgressBar progressBar;
+    @Bind(R.id.toolbar_back)Button back;
     private Context context;
     private SharedPreferences settings;
     private Typeface typeface;
-
-
 
     public Toolbar(Context context) {
         super(context);
@@ -58,18 +59,14 @@ public class Toolbar extends RelativeLayout {
         typeface = Typeface.createFromAsset(context.getAssets(),
                 "font/PAYTONEONE.TTF");
 
-
         inflate(getContext(), R.layout.toolbar, this);
         ButterKnife.bind(this, this);
         levelTitle.setTypeface(typeface);
         level.setTypeface(typeface);
         coins.setTypeface(typeface);
 
-
         setCoins();
         setLevel();
-
-
     }
 
     public void setCoins(){
@@ -142,5 +139,18 @@ public class Toolbar extends RelativeLayout {
     public void openShop(){
         Intent i = new Intent(context, ShopActivity.class);
         context.startActivity(i);
+    }
+
+    public void setShopToolbar() {
+        level.setVisibility(View.GONE);
+        levelTitle.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        back.setVisibility(View.VISIBLE);
+        coins.setClickable(false);
+    }
+
+    @OnClick(R.id.toolbar_back)
+    public void back(){
+        ((Activity)context).finish();
     }
 }
