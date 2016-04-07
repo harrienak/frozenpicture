@@ -121,7 +121,6 @@ public class StartActivity extends Activity {
         animGuy.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
                 guy.setVisibility(View.VISIBLE);
             }
 
@@ -130,7 +129,6 @@ public class StartActivity extends Activity {
                 ((AnimationDrawable) guy.getBackground()).start();
                 animateCloud();
                 animateButton();
-
             }
 
             @Override
@@ -140,7 +138,6 @@ public class StartActivity extends Activity {
         });
         animGuy.start();
     }
-
 
     private void loadLevels() {
         if (Utils.isFirstTime(this)) {
@@ -156,8 +153,6 @@ public class StartActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run()
@@ -204,7 +199,6 @@ public class StartActivity extends Activity {
         }, 0, 2000);
 
     }
-
 
     @OnClick(R.id.button_play)
     public void play() {
