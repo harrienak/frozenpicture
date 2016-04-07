@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.geckoapps.raaddeplaat.activity.ShopActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fp_background"
+                android:orientation="vertical"
+                tools:context="com.geckoapps.raaddeplaat.activity.ShopActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shop_plank"
+        android:layout_below="@+id/level_toolbar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shop_kast"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/shop_bord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/shop_bordjes"/>
+
     <com.geckoapps.raaddeplaat.model.Toolbar
         android:id="@+id/level_toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"></com.geckoapps.raaddeplaat.model.Toolbar>
 
-    <Button android:id="@+id/button_tapjoy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="tapjoy"/>
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/shop_plank"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/button_tapjoy"
+            android:background="@drawable/free_button"/>
+    </RelativeLayout>
+</RelativeLayout>

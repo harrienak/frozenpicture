@@ -77,7 +77,7 @@ public class LevelActivity extends Activity {
 
         loadAds();
         setViews();
-        initLevel();
+       // initLevel();
     }
 
     private void loadAds() {

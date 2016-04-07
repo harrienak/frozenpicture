@@ -63,6 +63,13 @@
                 style="@style/textViewStyle"
                 android:textSize="24sp"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_button"/>
         </LinearLayout>
 
         <LinearLayout
