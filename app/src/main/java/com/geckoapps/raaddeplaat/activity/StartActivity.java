@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,7 +37,8 @@ public class StartActivity extends Activity {
 
     @Bind(R.id.snowflakeContainer)RelativeLayout snowflakeContainer;
 
-    Typeface typeface;
+    private Typeface typeface;
+    private AnimationSet animSnow1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +51,23 @@ public class StartActivity extends Activity {
         cloud.setTypeface(typeface);
 
         loadLevels();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(animSnow1 != null){
+            animSnow1.reset();
+            animSnow1.start();
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(animSnow1 != null){
+            animSnow1.cancel();
+        }
     }
 
     private void startAnimations() {
@@ -189,7 +204,7 @@ public class StartActivity extends Activity {
                             snowFlake.setLayoutParams(lp);
                             snowflakeContainer.addView(snowFlake);
 
-                            AnimationSet animSnow1 = new SnowAnimation(StartActivity.this);
+                            animSnow1 = new SnowAnimation(StartActivity.this);
                             snowFlake.setAnimation(animSnow1);
                             animSnow1.start();
                         }

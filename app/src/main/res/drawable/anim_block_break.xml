@@ -58,7 +58,7 @@
     <item
         android:drawable="@drawable/axe18"
         android:duration="@integer/duration_anim" />
-skype    <item
+    <item
         android:drawable="@drawable/axe19"
         android:duration="@integer/duration_anim" />
     <item

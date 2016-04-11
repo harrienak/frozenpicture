@@ -118,6 +118,7 @@ public class Level {
                 letters.add("G");removeHelp.add("G");
                 letters.add("G");removeHelp.add("G");
             }
+            resetData();
         } else {
             for (int i = 0; i < answer.length(); i++) {
                 if (!answer.substring(i, i + 1).equals(" ")) {
@@ -125,6 +126,8 @@ public class Level {
                 }
             }
             numberOfLetters = letters.size();
+
+            resetData();
 
             for (int i = letters.size(); i < max_letters; i++) {
                 Random r = new Random();
@@ -136,7 +139,7 @@ public class Level {
             Collections.shuffle(this.removeHelp);
         }
 
-        resetData();
+
         if(getNr() == 1){
             if(Locale.getDefault().getLanguage().equals("nl")) {
                 correct_letters[0] = "G";

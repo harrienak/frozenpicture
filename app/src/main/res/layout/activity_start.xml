@@ -6,6 +6,12 @@
                 android:background="@drawable/fp_background"
                 tools:context="com.geckoapps.raaddeplaat.activity.StartActivity">
 
+
+    <RelativeLayout android:id="@+id/snowflakeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/start_load"
         android:layout_width="wrap_content"

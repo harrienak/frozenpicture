@@ -76,7 +76,6 @@ public class Utils {
         return (int) dp;
     }
 
-
     public static int getLeftMargin(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -88,6 +87,21 @@ public class Utils {
         Random random =  new Random();
 
         return random.nextInt(width-200);
+    }
+
+    public static int getRandom(int i) {
+        Random r = new Random();
+        return r.nextInt(i);
+    }
+
+    public static int getRandom(int x, int y) {
+        Random r = new Random();
+        return (r.nextInt(y - x) + x);
+    }
+
+    public static boolean getRandomBoolean() {
+        Random r = new Random();
+        return r.nextBoolean();
     }
 
 }
