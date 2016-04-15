@@ -7,491 +7,496 @@
     android:background="@drawable/fp_background"
     tools:context="com.geckoapps.raaddeplaat.LevelActivity">
 
-    <!-- sunrise -->
-    <ImageView
-        android:id="@+id/level_sunrise"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/sunrise"/>
-
-    <!-- toolbar -->
-    <com.geckoapps.raaddeplaat.model.Toolbar
-        android:id="@+id/level_toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible" />
-
-    <!--top-->
-    <LinearLayout
+    <!-- share layout -->
+    <RelativeLayout android:id="@+id/share_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_below"
-        android:layout_below="@+id/level_toolbar"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/level_image_container"
-            android:layout_width="@dimen/frame_size"
-            android:layout_height="@dimen/frame_size"
+        android:layout_height="match_parent">
+        <!-- sunrise -->
+        <ImageView
+            android:id="@+id/level_sunrise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/frame">
+            android:src="@drawable/sunrise"
+            android:visibility="invisible" />
 
+        <!-- toolbar -->
+        <com.geckoapps.raaddeplaat.model.Toolbar
+            android:id="@+id/level_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
 
-            <FrameLayout
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
+        <!--top-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_below"
+            android:layout_below="@+id/level_toolbar"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/level_image_container"
+                android:layout_width="@dimen/frame_size"
+                android:layout_height="@dimen/frame_size"
                 android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:visibility="visible">
+                android:background="@drawable/frame">
 
-                <ImageView
-                    android:id="@+id/level_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
-                <LinearLayout
-                    android:id="@+id/level_block_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:visibility="visible">
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/level_completed_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="1"
-                    android:background="@color/black_transparnt"
-                    android:orientation="vertical"
-                    android:padding="5dp"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/level_completed_title"
-                        style="@style/textViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Level completed"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/level_completed_subtitle"
-                        style="@style/textViewStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Good Job!!"
-                        android:textSize="38sp" />
+                    <ImageView
+                        android:id="@+id/level_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
+                        android:id="@+id/level_block_container"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="bottom|center_horizontal">
+                        android:orientation="vertical">
 
-                        <LinearLayout
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_completed_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="1"
+                        android:background="@color/black_transparnt"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/level_completed_title"
+                            style="@style/textViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center">
+                            android:layout_gravity="center_horizontal"
+                            android:text="Level completed"
+                            android:textSize="24sp" />
 
-                            <ImageView
+                        <TextView
+                            android:id="@+id/level_completed_subtitle"
+                            style="@style/textViewStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="Good Job!!"
+                            android:textSize="38sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom|center_horizontal">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/fp_coin" />
+                                android:gravity="center">
 
-                            <TextView
-                                android:id="@+id/level_completed_coins"
-                                style="@style/textViewStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:text="x 3"
-                                android:textSize="34sp" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/fp_coin" />
+
+                                <TextView
+                                    android:id="@+id/level_completed_coins"
+                                    style="@style/textViewStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="x 3"
+                                    android:textSize="34sp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </FrameLayout>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!-- overlay -->
-    <LinearLayout
-        android:id="@+id/level_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/level_footer"
-        android:background="@color/black_transparnt"
-        android:orientation="vertical"
-        android:visibility="gone" />
-
-    <!-- oaken Completed -->
-    <ImageView
-        android:id="@+id/level_guy_completed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/level_footer"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/oaken_frozen"
-        android:visibility="gone" />
-
-    <!-- textcloud oaken completed-->
-    <TextView
-        android:id="@+id/level_cloud_completed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/level_guy"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/cloud"
-        android:gravity="center_horizontal"
-        android:paddingBottom="25dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:text="@string/start_text_cloud"
-        android:textColor="#6C6C6C"
-        android:textSize="15sp"
-        android:visibility="gone" />
-
-    <!--middle-->
-    <RelativeLayout
-        android:id="@+id/layout_below"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/level_footer"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/level_button_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_axe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/axe" />
-
-            <Button
-                android:id="@+id/button_shuffle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_toLeftOf="@id/button_axe"
-                android:background="@drawable/btn_green_middle"
-                android:text="@string/level_shuffle"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/button_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/button_axe"
-                android:background="@drawable/btn_bleu"
-                android:text="@string/level_share"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="center_horizontal|bottom"
-            android:orientation="horizontal"
-            android:paddingBottom="6dp">
-
-            <Button
-                android:id="@+id/buttonWoord0"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height"
-                android:layout_below="@+id/level_button_container" />
-
-            <Button
-                android:id="@+id/buttonWoord1"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord2"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord3"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord4"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord5"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord6"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord7"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord8"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord9"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord10"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
-
-            <Button
-                android:id="@+id/buttonWoord11"
-                style="@style/style_letter_answer"
-                android:layout_width="@dimen/level_button_answer_width"
-                android:layout_height="@dimen/level_button_answer_height" />
+                </FrameLayout>
+            </RelativeLayout>
         </LinearLayout>
 
-
-    </RelativeLayout>
-
-    <!-- oaeken tutorial -->
-    <ImageView
-        android:id="@+id/level_guy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/level_footer"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/oaken_frozen"
-        android:visibility="gone" />
-
-    <!-- textcloud oaken -->
-    <TextView
-        android:id="@+id/level_cloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/level_guy"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/cloud"
-        android:gravity="center_horizontal"
-        android:paddingBottom="25dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:text="@string/start_text_cloud"
-        android:textColor="#6C6C6C"
-        android:textSize="15sp"
-        android:visibility="gone" />
-
-    <!--footer-->
-    <LinearLayout
-        android:id="@+id/level_footer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/footer_height"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/footer"
-        android:orientation="vertical"
-        android:paddingBottom="60dp"
-        android:paddingTop="10dp">
-
+        <!-- overlay -->
         <LinearLayout
-            android:id="@+id/level_tutorial_overlay"
+            android:id="@+id/level_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/tutorial_axe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/axe" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/level_next_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/level_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next!" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/level_letters_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_footer"
+            android:background="@color/black_transparnt"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone" />
 
-            <LinearLayout
+        <!-- oaken Completed -->
+        <ImageView
+            android:id="@+id/level_guy_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_footer"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/oaken_frozen"
+            android:visibility="gone" />
+
+        <!-- textcloud oaken completed-->
+        <TextView
+            android:id="@+id/level_cloud_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_guy"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/cloud"
+            android:gravity="center_horizontal"
+            android:paddingBottom="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/start_text_cloud"
+            android:textColor="#6C6C6C"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <!--middle-->
+        <RelativeLayout
+            android:id="@+id/layout_below"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_footer"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/level_button_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/buttonLetter0"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height"
-                    android:text="G" />
-
-                <Button
-                    android:id="@+id/buttonLetter1"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter2"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter3"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter4"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter5"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter6"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetter7"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
-
-                <Button
-                    android:id="@+id/buttonLetterHint"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height"
-                    android:background="@drawable/hint_button" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/buttonLetter9"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/button_axe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/axe" />
 
                 <Button
-                    android:id="@+id/buttonLetter10"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/button_shuffle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@id/button_axe"
+                    android:background="@drawable/btn_green_middle"
+                    android:text="@string/level_shuffle"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/buttonLetter11"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/button_axe"
+                    android:background="@drawable/btn_bleu"
+                    android:text="@string/level_share"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal|bottom"
+                android:orientation="horizontal"
+                android:paddingBottom="6dp">
 
                 <Button
-                    android:id="@+id/buttonLetter12"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/buttonWoord0"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height"
+                    android:layout_below="@+id/level_button_container" />
 
                 <Button
-                    android:id="@+id/buttonLetter13"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/buttonWoord1"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
 
                 <Button
-                    android:id="@+id/buttonLetter14"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/buttonWoord2"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
 
                 <Button
-                    android:id="@+id/buttonLetter15"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/buttonWoord3"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
 
                 <Button
-                    android:id="@+id/buttonLetter16"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height" />
+                    android:id="@+id/buttonWoord4"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
 
                 <Button
-                    android:id="@+id/buttonBom"
-                    style="@style/style_letter_button"
-                    android:layout_width="@dimen/level_button_letter_width"
-                    android:layout_height="@dimen/level_button_letter_height"
-                    android:background="@drawable/bomb_button" />
+                    android:id="@+id/buttonWoord5"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord6"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord7"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord8"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord9"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord10"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
+
+                <Button
+                    android:id="@+id/buttonWoord11"
+                    style="@style/style_letter_answer"
+                    android:layout_width="@dimen/level_button_answer_width"
+                    android:layout_height="@dimen/level_button_answer_height" />
             </LinearLayout>
 
 
+        </RelativeLayout>
+
+        <!-- oaeken tutorial -->
+        <ImageView
+            android:id="@+id/level_guy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_footer"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/oaken_frozen"
+            android:visibility="gone" />
+
+        <!-- textcloud oaken -->
+        <TextView
+            android:id="@+id/level_cloud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_guy"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/cloud"
+            android:gravity="center_horizontal"
+            android:paddingBottom="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/start_text_cloud"
+            android:textColor="#6C6C6C"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <!--footer-->
+        <LinearLayout
+            android:id="@+id/level_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/footer"
+            android:orientation="vertical"
+            android:paddingBottom="60dp"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/level_tutorial_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/tutorial_axe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/axe" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/level_next_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/level_next_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next!" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/level_letters_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/buttonLetter0"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height"
+                        android:text="G" />
+
+                    <Button
+                        android:id="@+id/buttonLetter1"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter2"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter3"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter4"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter5"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter6"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter7"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetterHint"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height"
+                        android:background="@drawable/hint_button" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/buttonLetter9"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter10"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter11"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter12"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter13"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter14"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter15"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonLetter16"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height" />
+
+                    <Button
+                        android:id="@+id/buttonBom"
+                        style="@style/style_letter_button"
+                        android:layout_width="@dimen/level_button_letter_width"
+                        android:layout_height="@dimen/level_button_letter_height"
+                        android:background="@drawable/bomb_button" />
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- ad -->
     <com.google.android.gms.ads.AdView
@@ -500,7 +505,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:visibility="visible"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id_levelscreen" />

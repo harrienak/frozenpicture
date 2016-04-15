@@ -80,43 +80,44 @@ public class Level {
         if(getNr() == 1){
             if(Locale.getDefault().getLanguage().equals("nl")){
                 letters.add("H");removeHelp.add("H");
-                letters.add("I");removeHelp.add("I");
+                letters.add("S");removeHelp.add("S");
                 letters.add("I");removeHelp.add("I");
                 letters.add("F");removeHelp.add("F");
-                letters.add("T");removeHelp.add("T");
+                letters.add("K");removeHelp.add("K");
                 letters.add("A");removeHelp.add("A");
                 letters.add("G");removeHelp.add("G");
                 letters.add("L");removeHelp.add("L");
 
                 letters.add("W");removeHelp.add("W");
-                letters.add("Z");removeHelp.add("Z");
+                letters.add("O");removeHelp.add("O");
                 letters.add("J");removeHelp.add("J");
                 letters.add("V");removeHelp.add("V");
                 letters.add("R");removeHelp.add("R");
-                letters.add("K");removeHelp.add("K");
+                letters.add("A");removeHelp.add("A");
                 letters.add("E");removeHelp.add("E");
                 letters.add("E");removeHelp.add("E");
-                numberOfLetters = 8;
+                numberOfLetters = 5;
 
 
             }else{
+                letters.add("I");removeHelp.add("I");
+                letters.add("A");removeHelp.add("A");
+                letters.add("O");removeHelp.add("O");
                 letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
+                letters.add("C");removeHelp.add("C");
+                letters.add("E");removeHelp.add("E");
+                letters.add("L");removeHelp.add("L");
+                letters.add("L");removeHelp.add("L");
 
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
-                letters.add("G");removeHelp.add("G");
+                letters.add("W");removeHelp.add("W");
+                letters.add("K");removeHelp.add("K");
+                letters.add("D");removeHelp.add("D");
+                letters.add("U");removeHelp.add("U");
+                letters.add("T");removeHelp.add("T");
+                letters.add("N");removeHelp.add("N");
+                letters.add("O");removeHelp.add("O");
+                letters.add("H");removeHelp.add("H");
+                numberOfLetters = 6;
             }
             resetData();
         } else {
@@ -142,17 +143,18 @@ public class Level {
 
         if(getNr() == 1){
             if(Locale.getDefault().getLanguage().equals("nl")) {
-                correct_letters[0] = "G";
-                correct_letters[1] = "E";
-                correct_letters[2] = "I";
-                correct_letters[3] = "L";
-
-                correct_letters[4] = "W";
-                correct_letters[5] = "I";
-                correct_letters[6] = "J";
-                correct_letters[7] = "F";
+                correct_letters[0] = "K";
+                correct_letters[1] = "A";
+                correct_letters[2] = "A";
+                correct_letters[3] = "R";
+                correct_letters[4] = "S";
             } else{
-
+                correct_letters[0] = "C";
+                correct_letters[1] = "A";
+                correct_letters[2] = "N";
+                correct_letters[3] = "D";
+                correct_letters[4] = "L";
+                correct_letters[5] = "E";
             }
         }
 

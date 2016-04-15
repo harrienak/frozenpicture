@@ -1,13 +1,22 @@
 package com.geckoapps.raaddeplaat.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -61,7 +70,8 @@ public class LevelActivity extends Activity {
     LinearLayout completedContainer;
     @Bind(R.id.level_tutorial_overlay)
     LinearLayout tutorialContainer;
-    @Bind(R.id.level_image_container)RelativeLayout levelImageContainer;
+    @Bind(R.id.level_image_container)
+    RelativeLayout levelImageContainer;
 
     @Bind(R.id.level_completed_title)
     TextView titleCompleted;
@@ -188,8 +198,88 @@ public class LevelActivity extends Activity {
     public void share() {
         if (!tutorialGoing || !LevelActivity.progressGoing) {
             toolbar.addCoins(100);
+            // Here, thisActivity is the current activity
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            101);
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            } else {
+                shareScreen();
+            }
         }
     }
+
+    public Bitmap screenShot(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
+                view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
+    private void shareScreen() {
+        RelativeLayout allImages = (RelativeLayout) findViewById(R.id.share_layout);
+        allImages.setBackgroundResource(R.drawable.fp_background);
+        Bitmap emojis = screenShot(allImages);
+        allImages.setBackgroundResource(android.R.color.transparent);
+        String pathofBmp = MediaStore.Images.Media.insertImage(getContentResolver(), emojis, "fp_" + currentLevel.getNr(), null);
+        Uri bmpUri;
+
+        if (pathofBmp != null) {
+            Intent emailIntent1 = new Intent(android.content.Intent.ACTION_SEND);
+            bmpUri = Uri.parse(pathofBmp);
+            emailIntent1.putExtra(Intent.EXTRA_STREAM, bmpUri);
+            emailIntent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            emailIntent1.putExtra(Intent.EXTRA_TITLE, "test in je bakkes");
+            emailIntent1.putExtra(Intent.EXTRA_TEXT, getString(R.string.level_share_title) + "; " + "https://play.google.com/store/apps/details?id=com.xxx.frozenpicture");
+            emailIntent1.setType("image/png");
+            startActivity(emailIntent1);
+        } else {
+            Toast.makeText(this, getString(R.string.level_share_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    shareScreen();
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
 
     @OnClick(R.id.level_next_button)
     public void nextLevel() {
@@ -574,7 +664,7 @@ public class LevelActivity extends Activity {
             letters.get(i).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
                     if (tutorialGoing) {
-                        if (i2 == 6) {
+                        if (i2 == 4) {
                             tutorialOnLetterClick(i2);
                         } else {
                             cloud.setText(getString(R.string.tutorial_wrong_letter));
@@ -896,7 +986,7 @@ public class LevelActivity extends Activity {
 
     private void levelCompletedPart2() {
         startSunrise();
-       // rotateFrame();
+        // rotateFrame();
         setNextContainerLayout();
     }
 
@@ -906,7 +996,7 @@ public class LevelActivity extends Activity {
         animation.start();
     }
 
-    private void rotateFrame(){
+    private void rotateFrame() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.frame_rotate);
         levelImageView.setAnimation(animation);
         animation.start();
@@ -939,10 +1029,10 @@ public class LevelActivity extends Activity {
         animation.start();
         blockContainer.setVisibility(View.GONE);
 
-       // completedContainer.setVisibility(View.VISIBLE);
+        // completedContainer.setVisibility(View.VISIBLE);
     }
 
-    private void showTextInBlock(){
+    private void showTextInBlock() {
         completedContainer.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadeincompleted);
         animation.setAnimationListener(new AnimationListener() {
@@ -964,7 +1054,8 @@ public class LevelActivity extends Activity {
         completedContainer.setAnimation(animation);
         animation.start();
     }
-    private void showScoreLevel(){
+
+    private void showScoreLevel() {
         //stars
 
         coinsCompleted.setText("x" + "coins");
