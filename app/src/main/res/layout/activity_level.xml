@@ -41,7 +41,8 @@
                 android:layout_width="@dimen/frame_size"
                 android:layout_height="@dimen/frame_size"
                 android:layout_centerInParent="true"
-                android:background="@drawable/frame">
+                android:background="@drawable/frame_snow">
+                
 
 
                 <FrameLayout
@@ -176,7 +177,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -184,7 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/axe" />
+                    android:background="@drawable/button_axe" />
 
                 <Button
                     android:id="@+id/button_shuffle"
@@ -192,9 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_toLeftOf="@id/button_axe"
-                    android:background="@drawable/btn_green_middle"
-                    android:text="@string/level_shuffle"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_shuffle"
                     android:textSize="20sp" />
 
                 <Button
@@ -203,9 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/button_axe"
-                    android:background="@drawable/btn_bleu"
-                    android:text="@string/level_share"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_share"
                     android:textSize="20sp" />
             </RelativeLayout>
 
@@ -344,7 +341,7 @@
                     android:id="@+id/tutorial_axe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/axe" />
+                    android:background="@drawable/button_axe" />
             </LinearLayout>
 
             <LinearLayout

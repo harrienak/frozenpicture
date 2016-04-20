@@ -869,8 +869,6 @@ public class LevelActivity extends Activity {
         correctButtonFloat();
         showOakenGuy();
 
-
-
        /* for (int j = 0; j < lettersInWord.size(); j++) {
 
             Animation load = AnimationUtils.loadAnimation(this, R.anim.correct2);
@@ -933,7 +931,7 @@ public class LevelActivity extends Activity {
 
     private void showOakenGuy() {
         Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
-        guyCompleted.setBackgroundResource(R.drawable.anim_oaken_correct);
+        guyCompleted.setBackgroundResource(R.drawable.oaken_normal);
         guyCompleted.setAnimation(animGuy);
         animGuy.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -943,6 +941,7 @@ public class LevelActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                guyCompleted.setBackgroundResource(R.drawable.anim_oaken_correct);
                 ((AnimationDrawable) guyCompleted.getBackground()).start();
                 hideOakenGuy();
             }
@@ -981,7 +980,7 @@ public class LevelActivity extends Activity {
                 });
                 animGuy.start();
             }
-        }, 500);
+        }, 1250);
     }
 
     private void levelCompletedPart2() {
