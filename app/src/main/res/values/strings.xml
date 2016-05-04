@@ -20,6 +20,7 @@
     <!--Tutorial-->
     <string name="tutorial_intro">Joehoe,\nUse the Axe to destroy the iceblocks to reveal the picture. If you use it to often it will cost you more money!</string>
     <string name="tutorial_letters">Nice Job!\nThe picture is better visible, try to guess what it is by clicking on the letters. I will help you with this one: click on the letter C!</string>
+    <string name="tutorial_shareshuffle">Cool! You can use the axe to remove more block, the shuffle button the change the removeable blocks, and the share button to ask friends for help!\nClick on me to start play for real:)</string>
     <string name="tutorial_wrong_letter">Dont let me down! The first letter is a C, Im sure!!</string>
 
     <!--De rest -->

@@ -46,13 +46,13 @@ public class Block extends ImageView{
     }
 
     public void fadeInCoin(){
-        setBackgroundResource(R.drawable.anim_block_coin);
-        ((AnimationDrawable) this.getBackground()).start();
+        setBackgroundResource(R.drawable.coin1);
+      //  ((AnimationDrawable) this.getBackground()).start();
     }
 
     public void fadeInSweep(){
-        setBackgroundResource(R.drawable.anim_block_sweep);
-        ((AnimationDrawable) this.getBackground()).start();
+        setBackgroundResource(R.drawable.axe1);
+     //   ((AnimationDrawable) this.getBackground()).start();
     }
 
     public void breakBlock(){

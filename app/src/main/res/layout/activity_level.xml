@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fp_background"
-    tools:context="com.geckoapps.raaddeplaat.LevelActivity">
+    android:background="@drawable/fp_background">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        android:src="@drawable/fp_background_complete"/>
+
 
     <!-- share layout -->
     <RelativeLayout android:id="@+id/share_layout"
@@ -17,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/sunrise"
+            android:src="@drawable/fp_risingsun_btn"
             android:visibility="invisible" />
 
         <!-- toolbar -->
@@ -41,7 +48,14 @@
                 android:layout_width="@dimen/frame_size"
                 android:layout_height="@dimen/frame_size"
                 android:layout_centerInParent="true"
-                android:background="@drawable/frame_snow">
+                android:background="@drawable/frame">
+
+                <ImageView
+                    android:id="@+id/snowframe"
+                    android:layout_width="@dimen/frame_size"
+                    android:layout_height="@dimen/frame_size"
+                    android:src="@drawable/frame_snow"
+                    android:scaleType="centerCrop"/>
                 
 
 
@@ -123,16 +137,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <!-- overlay -->
-        <LinearLayout
-            android:id="@+id/level_overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/level_footer"
-            android:background="@color/black_transparnt"
-            android:orientation="vertical"
-            android:visibility="gone" />
-
         <!-- oaken Completed -->
         <ImageView
             android:id="@+id/level_guy_completed"
@@ -143,30 +147,13 @@
             android:background="@drawable/oaken_frozen"
             android:visibility="gone" />
 
-        <!-- textcloud oaken completed-->
-        <TextView
-            android:id="@+id/level_cloud_completed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/level_guy"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/cloud"
-            android:gravity="center_horizontal"
-            android:paddingBottom="25dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="10dp"
-            android:text="@string/start_text_cloud"
-            android:textColor="#6C6C6C"
-            android:textSize="15sp"
-            android:visibility="gone" />
-
         <!--middle-->
         <RelativeLayout
             android:id="@+id/layout_below"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/level_footer"
+            android:visibility="invisible"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -290,6 +277,34 @@
 
         </RelativeLayout>
 
+        <!-- overlay -->
+        <LinearLayout
+            android:id="@+id/level_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/level_footer"
+            android:background="@color/black_transparnt"
+            android:orientation="vertical"
+            android:visibility="gone" />
+
+        <!-- textcloud oaken completed-->
+        <TextView
+            android:id="@+id/level_cloud_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/level_guy"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/cloud"
+            android:gravity="center_horizontal"
+            android:paddingBottom="50dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/tutorial_shareshuffle"
+            android:textColor="#6C6C6C"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
         <!-- oaeken tutorial -->
         <ImageView
             android:id="@+id/level_guy"
@@ -309,7 +324,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/cloud"
             android:gravity="center_horizontal"
-            android:paddingBottom="25dp"
+            android:paddingBottom="50dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="10dp"

@@ -72,6 +72,7 @@ public class LevelActivity extends Activity {
     LinearLayout tutorialContainer;
     @Bind(R.id.level_image_container)
     RelativeLayout levelImageContainer;
+    @Bind(R.id.layout_below)View buttonMiddleContainer;
 
     @Bind(R.id.level_completed_title)
     TextView titleCompleted;
@@ -103,6 +104,8 @@ public class LevelActivity extends Activity {
     Button shareButton;
     @Bind(R.id.level_sunrise)
     ImageView sunrise;
+    @Bind(R.id.background)ImageView background;
+    @Bind(R.id.snowframe)ImageView snowFrame;
 
     private Level currentLevel;
     private ArrayList<Button> letters, woord, lettersInWord;
@@ -136,12 +139,26 @@ public class LevelActivity extends Activity {
         mAdView.loadAd(adRequest);
     }
 
+   /* @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        if(!tutorialGoing){
+            super.onBackPressed();  // optional depending on your needs
+            finish();
+        }
+    }*/
+
+
     private void initLevel() {
         sunrise.clearAnimation();
         sunrise.setVisibility(View.INVISIBLE);
         shuffleButton.setVisibility(View.VISIBLE);
         axe.setVisibility(View.VISIBLE);
         shareButton.setVisibility(View.VISIBLE);
+        buttonMiddleContainer.setVisibility(View.VISIBLE);
+        background.setVisibility(View.INVISIBLE);
+        snowFrame.setVisibility(View.VISIBLE);
 
         getLevel();
         setLevel();
@@ -162,7 +179,7 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.button_axe)
     public void removeBlocks() {
-        if (!tutorialGoing || !LevelActivity.progressGoing) {
+        if (!tutorialGoing && !LevelActivity.progressGoing) {
             if (currentLevel.isHasShuffledBlocks()) {
                 if (toolbar.spendCoins(Utils.PRIZE_HACK)) {
                     currentLevel.removeBlocksForTurn();
@@ -177,7 +194,7 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.button_shuffle)
     public void shuffleBlocksCheck() {
-        if (!tutorialGoing || !LevelActivity.progressGoing) {
+        if (!tutorialGoing && !LevelActivity.progressGoing) {
             if (toolbar.spendCoins(Utils.PRIZE_SHUFFLE)) {
                 shuffleBlocks();
             } else {
@@ -196,7 +213,7 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.button_share)
     public void share() {
-        if (!tutorialGoing || !LevelActivity.progressGoing) {
+        if (!tutorialGoing && !LevelActivity.progressGoing) {
             toolbar.addCoins(100);
             // Here, thisActivity is the current activity
             if (ContextCompat.checkSelfPermission(this,
@@ -308,7 +325,7 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.buttonBom)
     public void removeLetters() {
-        if (!tutorialGoing || !LevelActivity.progressGoing) {
+        if (!tutorialGoing && !LevelActivity.progressGoing) {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.title_removeletters))
                     .setMessage(getString(R.string.text_removeletters) + " " + Utils.PRIZE_BOMB + " " + getString(R.string.coins_q))
@@ -361,7 +378,7 @@ public class LevelActivity extends Activity {
 
     @OnClick(R.id.buttonLetterHint)
     public void hintLetter() {
-        if (!tutorialGoing || !LevelActivity.progressGoing) {
+        if (!tutorialGoing && !LevelActivity.progressGoing) {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.title_hintletter))
                     .setMessage(getString(R.string.text_hintletter) + " " + Utils.PRIZE_HINT + " " + getString(R.string.coins_q))
@@ -398,7 +415,7 @@ public class LevelActivity extends Activity {
             }
         }
         lettersInWord.get(nr).setText(currentLevel.correct_letters[nr].toUpperCase(Locale.US));
-        lettersInWord.get(nr).setBackgroundResource(R.drawable.letter_button_correct);
+        lettersInWord.get(nr).setBackgroundResource(R.drawable.btn_green_push);
 
 
         lettersInWord.get(nr).setClickable(false);
@@ -868,29 +885,7 @@ public class LevelActivity extends Activity {
         fadeOutStuff();
         correctButtonFloat();
         showOakenGuy();
-
-       /* for (int j = 0; j < lettersInWord.size(); j++) {
-
-            Animation load = AnimationUtils.loadAnimation(this, R.anim.correct2);
-            lettersInWord.get(j).startAnimation(load);
-            lettersInWord.get(j).setBackgroundResource(R.drawable.letter_button_correct);
-            if (j2 == 1) {
-                load.setAnimationListener(new AnimationListener() {
-                    public void onAnimationEnd(Animation animation) {
-                        lettersInWord.get(j2).setText(currentLevel.correct_letters[j2].toUpperCase(Locale.US));
-
-                        //LEVEL COMPLETE
-                        setNextContainerLayout();
-                    }
-
-                    public void onAnimationRepeat(Animation arg0) {
-                    }
-
-                    public void onAnimationStart(Animation arg0) {
-                    }
-                });
-            }
-        }*/
+        fadeBG();
     }
 
     private void fadeOutStuff() {
@@ -912,12 +907,12 @@ public class LevelActivity extends Activity {
     private void correctButtonFloat() {
         for (int i = 0; i < lettersInWord.size(); i++) {
             final int j = i;
-            lettersInWord.get(j).setBackgroundResource(R.drawable.letter_button_correct);
-            int duration = Utils.getRandom((j * 300) + 1);
+            lettersInWord.get(j).setBackgroundResource(R.drawable.btn_green_push);
+            int duration = Utils.getRandom((j * 300) + 150);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    TranslateAnimation translateAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, -50);
+                    TranslateAnimation translateAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0, Animation.ABSOLUTE, -150);
                     translateAnimation.setRepeatMode(Animation.REVERSE);
                     translateAnimation.setRepeatCount(Animation.INFINITE);
                     translateAnimation.setDuration(Utils.getRandom(1000, 2000));
@@ -930,7 +925,7 @@ public class LevelActivity extends Activity {
     }
 
     private void showOakenGuy() {
-        Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
+        Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy_correct);
         guyCompleted.setBackgroundResource(R.drawable.oaken_normal);
         guyCompleted.setAnimation(animGuy);
         animGuy.setAnimationListener(new Animation.AnimationListener() {
@@ -943,6 +938,7 @@ public class LevelActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 guyCompleted.setBackgroundResource(R.drawable.anim_oaken_correct);
                 ((AnimationDrawable) guyCompleted.getBackground()).start();
+
                 hideOakenGuy();
             }
 
@@ -980,13 +976,19 @@ public class LevelActivity extends Activity {
                 });
                 animGuy.start();
             }
-        }, 1250);
+        }, 1600);
     }
 
     private void levelCompletedPart2() {
         startSunrise();
-        // rotateFrame();
+        rotateFrame();
         setNextContainerLayout();
+    }
+
+    private void fadeBG(){
+        Animation fadeinBG = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        background.setAnimation(fadeinBG);
+        fadeinBG.start();
     }
 
     private void startSunrise() {
@@ -996,17 +998,18 @@ public class LevelActivity extends Activity {
     }
 
     private void rotateFrame() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.frame_rotate);
-        levelImageView.setAnimation(animation);
-        animation.start();
+     /*   Animation fadeinBG = AnimationUtils.loadAnimation(this, R.anim.fadeout_frame);
+        snowFrame.setAnimation(fadeinBG);
+        fadeinBG.start();*/
+
+        snowFrame.setVisibility(View.INVISIBLE);
+
+       /* Animation animation = AnimationUtils.loadAnimation(this, R.anim.frame_rotate);
+        levelImageContainer.setAnimation(animation);
+        animation.start();*/
     }
 
     public void setNextContainerLayout() {
-        //nextContainer.setVisibility(View.VISIBLE); //later infaden
-        lettersContainer.setVisibility(View.GONE);
-        buttonContainer.setVisibility(View.INVISIBLE);
-        tutorialContainer.setVisibility(View.GONE);
-
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.fadeoutcompleted);
         animation.setAnimationListener(new AnimationListener() {
             @Override
@@ -1016,7 +1019,8 @@ public class LevelActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                showTextInBlock();
+                blockContainer.setVisibility(View.GONE);
+                //showTextInBlock();
             }
 
             @Override
@@ -1026,9 +1030,7 @@ public class LevelActivity extends Activity {
         });
         blockContainer.setAnimation(animation);
         animation.start();
-        blockContainer.setVisibility(View.GONE);
 
-        // completedContainer.setVisibility(View.VISIBLE);
     }
 
     private void showTextInBlock() {
@@ -1068,6 +1070,8 @@ public class LevelActivity extends Activity {
     ///////////////////////////
     private void checkTutorial() {
         tutorialGoing = true;
+        shareButton.setVisibility(View.INVISIBLE);
+        shuffleButton.setVisibility(View.INVISIBLE);
         overlay.setVisibility(View.VISIBLE);
         axe.setVisibility(View.INVISIBLE);
         animateGuy();
@@ -1140,7 +1144,6 @@ public class LevelActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 ((AnimationDrawable) guy.getBackground()).start();
-
             }
 
             @Override
@@ -1156,7 +1159,51 @@ public class LevelActivity extends Activity {
         guy.setVisibility(View.GONE);
         cloud.setVisibility(View.GONE);
         onLetterClick(i2);
-        tutorialGoing = false;
+        shareButton.setVisibility(View.VISIBLE);
+        shuffleButton.setVisibility(View.VISIBLE);
+
+        showGuy3();
+    }
+
+    private void showGuy3(){
+        Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
+        overlay.setVisibility(View.VISIBLE);
+        buttonMiddleContainer.setVisibility(View.VISIBLE);
+        animGuy.setFillAfter(true);
+        animGuy.setFillEnabled(true);
+        cloud.setText(getString(R.string.tutorial_shareshuffle));
+        guy.setAnimation(animGuy);
+        animGuy.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                guy.setVisibility(View.VISIBLE);
+                cloud.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ((AnimationDrawable) guy.getBackground()).start();
+                guy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        guy.clearAnimation();
+                        guy.setVisibility(View.GONE);
+                        cloud.setVisibility(View.GONE);
+                        tutorialGoing = false;
+                        guy.clearAnimation();
+                        overlay.setVisibility(View.GONE);
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animGuy.start();
     }
 
 }

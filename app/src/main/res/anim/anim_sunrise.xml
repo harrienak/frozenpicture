@@ -6,7 +6,7 @@
         android:fromAlpha="0.0"
         android:toAlpha="1.0" />
     <scale
-        android:duration="8000"
+        android:duration="6000"
         android:fillAfter="true"
         android:fillEnabled="true"
         android:fromXScale="1.5"
@@ -16,7 +16,7 @@
         android:toXScale="3.0"
         android:toYScale="3.0" />
     <rotate
-        android:duration="50000"
+        android:duration="60000"
         android:fromDegrees="0"
         android:pivotX="50%"
         android:pivotY="50%"

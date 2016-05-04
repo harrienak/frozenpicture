@@ -21,4 +21,8 @@
         android:drawable="@drawable/oaken_happy2"
         android:duration="250" />
 
+    <item
+        android:drawable="@drawable/oaken_normal"
+        android:duration="250" />
+
 </animation-list>

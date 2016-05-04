@@ -70,4 +70,8 @@
     <item
         android:drawable="@drawable/axe22"
         android:duration="@integer/duration_anim" />
+
+    <item
+        android:drawable="@drawable/block_empty"
+        android:duration="@integer/duration_anim"/>
 </animation-list>

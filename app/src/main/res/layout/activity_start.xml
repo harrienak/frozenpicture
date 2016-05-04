@@ -47,7 +47,7 @@
             android:layout_above="@+id/start_plank"
             android:layout_centerHorizontal="true"
             android:background="@drawable/oaken_frozen"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
 
         <RelativeLayout
             android:id="@+id/start_plank"
@@ -56,13 +56,14 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/footer">
 
-            <ImageView
+            <ImageView android:id="@+id/snow1"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/snow_left"/>
 
             <ImageView
+                android:id="@+id/snow2"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_alignParentRight="true"
@@ -70,12 +71,22 @@
                 android:src="@drawable/snow_right"/>
 
             <ImageView
+                android:id="@+id/play_rising_sun"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/fp_risingsun_btn"
+                android:layout_marginTop="-60dp"
+                />
+
+            <ImageView
                 android:id="@+id/button_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:visibility="invisible"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/play_button"/>
         </RelativeLayout>
 

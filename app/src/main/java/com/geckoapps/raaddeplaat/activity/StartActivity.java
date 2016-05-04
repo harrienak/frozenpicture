@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -30,15 +31,19 @@ public class StartActivity extends Activity {
     RelativeLayout playScreen;
     @Bind(R.id.start_load)
     LinearLayout loadScreen;
-    @Bind(R.id.start_guy)ImageView guy;
+    @Bind(R.id.start_guy) ImageView guy;
     @Bind(R.id.start_logo) ImageView logo;
     @Bind(R.id.start_cloud) TextView cloud;
     @Bind(R.id.button_play) ImageView play;
+    @Bind(R.id.snow1) ImageView snow1;
+    @Bind(R.id.snow2) ImageView snow2;
+    @Bind(R.id.play_rising_sun) ImageView playSun;
 
-    @Bind(R.id.snowflakeContainer)RelativeLayout snowflakeContainer;
+    @Bind(R.id.snowflakeContainer) RelativeLayout snowflakeContainer;
 
     private Typeface typeface;
     private AnimationSet animSnow1;
+    private boolean loadingLevels = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,41 +59,60 @@ public class StartActivity extends Activity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        if(animSnow1 != null){
+        guy.setVisibility(View.INVISIBLE);
+        cloud.setVisibility(View.INVISIBLE);
+        logo.setVisibility(View.INVISIBLE);
+        play.setVisibility(View.INVISIBLE);
+        playSun.setVisibility(View.INVISIBLE);
+
+        if (animSnow1 != null) {
             animSnow1.reset();
             animSnow1.start();
+        }
+        if (!loadingLevels) {
+            startAnimations();
+            startSnowAnimation();
         }
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if(animSnow1 != null){
+        if (animSnow1 != null) {
             animSnow1.cancel();
         }
+        guy.clearAnimation();
+        cloud.clearAnimation();
+        playSun.clearAnimation();
+        play.clearAnimation();
     }
 
     private void startAnimations() {
+        animateSnow();
         animateLogo();
     }
 
-    private void animateCloud(){
-        cloud.setVisibility(View.VISIBLE);
+    private void animateCloud() {
+        Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        cloud.setAnimation(fadein);
+        fadein.start();
     }
 
-    private void animateButton(){
-        play.setVisibility(View.VISIBLE);
+    Animation anim;
 
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.anim_playbutton);
+    private void animateButton() {
+        anim = AnimationUtils.loadAnimation(this, R.anim.anim_playbutton);
         play.setAnimation(anim);
         anim.setFillAfter(true);
         anim.setFillEnabled(true);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                play.setVisibility(View.VISIBLE);
+                Animation sun = AnimationUtils.loadAnimation(StartActivity.this, R.anim.fadein_playsun);
+                playSun.setAnimation(sun);
+                sun.start();
             }
 
             @Override
@@ -103,7 +127,7 @@ public class StartActivity extends Activity {
         anim.start();
     }
 
-    private void animateLogo(){
+    private void animateLogo() {
         Animation animLogo = AnimationUtils.loadAnimation(this, R.anim.anim_logo);
         logo.setAnimation(animLogo);
         animLogo.setFillAfter(true);
@@ -127,7 +151,17 @@ public class StartActivity extends Activity {
         animLogo.start();
     }
 
-    private void animateGuy(){
+    private void animateSnow() {
+        Animation fadein1 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        snow1.setAnimation(fadein1);
+        fadein1.start();
+
+        Animation fadein2 = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        snow2.setAnimation(fadein2);
+        fadein2.start();
+    }
+
+    private void animateGuy() {
         Animation animGuy = AnimationUtils.loadAnimation(this, R.anim.anim_guy);
         animGuy.setFillAfter(true);
         animGuy.setFillEnabled(true);
@@ -137,12 +171,12 @@ public class StartActivity extends Activity {
             @Override
             public void onAnimationStart(Animation animation) {
                 guy.setVisibility(View.VISIBLE);
+                animateCloud();
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 ((AnimationDrawable) guy.getBackground()).start();
-                animateCloud();
                 animateButton();
             }
 
@@ -160,6 +194,7 @@ public class StartActivity extends Activity {
             Utils.setSharedPref(this, Utils.SHARED_FIRSTTIME, false);
             shuffleLevels();
         } else {
+            loadingLevels = false;
             showPlayScreen();
         }
     }
@@ -170,8 +205,7 @@ public class StartActivity extends Activity {
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         showPlayScreen();
                     }
                 });
@@ -184,6 +218,7 @@ public class StartActivity extends Activity {
         playScreen.setVisibility(View.VISIBLE);
 
         guy.setBackgroundResource(R.drawable.anim_oaken);
+
         startAnimations();
 
         startSnowAnimation();
@@ -193,7 +228,7 @@ public class StartActivity extends Activity {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(snowflakeContainer.getChildCount() < 20){
+                if (snowflakeContainer.getChildCount() < 20) {
                     StartActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             //create image add to layout
@@ -217,7 +252,43 @@ public class StartActivity extends Activity {
 
     @OnClick(R.id.button_play)
     public void play() {
-        Intent intent= new Intent(StartActivity.this, LevelActivity.class);
+        Animation animGuy = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_guy_down);
+        guy.clearAnimation();
+        guy.setAnimation(animGuy);
+
+
+        animGuy.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Animation fadeOut = AnimationUtils.loadAnimation(StartActivity.this, R.anim.fadeout_textcloud);
+                cloud.setAnimation(fadeOut);
+                fadeOut.start();
+                play.clearAnimation();
+                play.setVisibility(View.INVISIBLE);
+                playSun.clearAnimation();
+                playSun.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                guy.setVisibility(View.INVISIBLE);
+
+
+                startPlay();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animGuy.start();
+    }
+
+
+    private void startPlay() {
+        Intent intent = new Intent(StartActivity.this, LevelActivity.class);
         startActivity(intent);
     }
+
 }

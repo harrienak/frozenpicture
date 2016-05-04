@@ -3,6 +3,11 @@
 
      android:duration="450">
 
+    <alpha android:fromAlpha="0.0"
+           android:toAlpha="1.0"
+           android:duration="250"
+           />
+
     <scale
         android:startOffset="250"
         android:duration="150"
